@@ -108,10 +108,19 @@ section { position: relative; z-index: 2; padding: var(--pad-sec); max-width: va
   border-bottom: 1px solid var(--line);
 }
 .nav-toggle {
-  display: none; background: none; border: 0; color: var(--sand);
-  font-size: 1.5rem; line-height: 1; cursor: pointer; padding: .2rem .4rem; border-radius: 6px;
+  display: none; position: relative; width: 30px; height: 22px;
+  background: none; border: 0; cursor: pointer; padding: 0; flex-shrink: 0;
 }
-.nav-toggle:hover { background: rgba(255,150,80,.12); }
+.nav-toggle span {
+  position: absolute; left: 2px; right: 2px; height: 2.5px; border-radius: 2px;
+  background: var(--sand); transition: transform .28s ease, opacity .2s ease, top .28s ease;
+}
+.nav-toggle span:nth-child(1) { top: 3px; }
+.nav-toggle span:nth-child(2) { top: 10px; }
+.nav-toggle span:nth-child(3) { top: 17px; }
+.nav.open .nav-toggle span:nth-child(1) { top: 10px; transform: rotate(45deg); }
+.nav.open .nav-toggle span:nth-child(2) { opacity: 0; }
+.nav.open .nav-toggle span:nth-child(3) { top: 10px; transform: rotate(-45deg); }
 .nav-brand {
   font-family: var(--f-mono); font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
   color: var(--sand); text-decoration: none; white-space: nowrap; font-weight: 500;
@@ -294,12 +303,13 @@ section { position: relative; z-index: 2; padding: var(--pad-sec); max-width: va
     border-bottom: 1px solid var(--line);
     max-height: 0; overflow: hidden; transition: max-height .28s ease;
   }
-  .nav.open .nav-links { max-height: 70vh; }
+  .nav.open .nav-links { max-height: 80vh; box-shadow: 0 14px 30px -16px rgba(0,0,0,.6); }
   .nav-links a {
-    padding: .9rem 1.4rem; font-size: .82rem; border-radius: 0;
+    padding: 1rem 1.4rem; font-size: .95rem; letter-spacing: .04em; border-radius: 0;
     border-top: 1px solid var(--line);
   }
-  .nav-links a.on { background: var(--sun); }
+  .nav-links a:first-child { border-top: none; }
+  .nav-links a.on { background: var(--sun); color: var(--night); }
 }
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
