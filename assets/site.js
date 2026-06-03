@@ -47,3 +47,8 @@ window.addEventListener('load', () => {
     if (href === here || (here === '' && href === 'index.html')) a.classList.add('on');
   });
 })();
+
+/* 4. SERVICE WORKER (installable + offline) ----------------------- */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}
