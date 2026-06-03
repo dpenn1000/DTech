@@ -143,7 +143,8 @@ section { position: relative; z-index: 2; padding: var(--pad-sec); max-width: va
 }
 .hero h1 .line2 {
   display: block; color: var(--sand); -webkit-text-fill-color: initial; background: none;
-  font-size: clamp(1.5rem, 5vw, 3.2rem); letter-spacing: .02em; margin-top: .4rem;
+  font-size: clamp(1.5rem, 5vw, 3.2rem); letter-spacing: .02em; margin-top: .6rem;
+  line-height: 1.12;   /* override the headline's .86 so wrapped subheads don't overlap */
 }
 .hero p { max-width: 640px; margin: 1.4rem auto 0; font-size: var(--t-body); color: var(--sand-dim); line-height: 1.5; }
 .scroll-cue {
