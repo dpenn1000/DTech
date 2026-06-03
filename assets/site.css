@@ -267,6 +267,11 @@ section { position: relative; z-index: 2; padding: var(--pad-sec); max-width: va
 .c-table { background: linear-gradient(150deg, #ffa24a, #b5613a 60%, #2a1c22); }
 .c-market { background: linear-gradient(150deg, #2fb9ad, #3f9d52 60%, #1f1419); }
 .c-hall { background: linear-gradient(150deg, #7a5cff, #ff944a 70%, #1f1419); }
+.c-sport { background: linear-gradient(150deg, #2fb9ad, #2a6f86 60%, #1f1419); }
+.c-water { background: linear-gradient(150deg, #39b6c9, #2a6f86 60%, #1f1419); }
+.c-wellness { background: linear-gradient(150deg, #7bbf6a, #3f9d52 60%, #1f1419); }
+.c-signature { background: linear-gradient(150deg, #ff7a59, #ff944a 60%, #1f1419); }
+.c-trip { background: linear-gradient(150deg, #c2774c, #6b3f2e 55%, #1f1419); }
 
 /* schedule list */
 .sched { display: flex; flex-direction: column; gap: .8rem; margin-top: 1.4rem; }
