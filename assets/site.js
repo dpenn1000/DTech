@@ -56,8 +56,7 @@ window.addEventListener('load', () => {
   const toggle = (open) => {
     const isOpen = open ?? !nav.classList.contains('open');
     nav.classList.toggle('open', isOpen);
-    btn.setAttribute('aria-expanded', isOpen);
-    btn.innerHTML = isOpen ? '&#10005;' : '&#9776;';   // × when open, ☰ when closed
+    btn.setAttribute('aria-expanded', isOpen);   // CSS morphs the bars to an X
   };
   btn.addEventListener('click', () => toggle());
   nav.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => toggle(false)));
