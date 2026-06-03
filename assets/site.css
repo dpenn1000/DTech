@@ -169,11 +169,17 @@ section { position: relative; z-index: 2; padding: var(--pad-sec); max-width: va
 /* banner hero (home). Shows the full banner graphic if assets/img/hero-banner.jpg
    exists; otherwise the <img> onerror flips on .fallback and we show a clean
    titled hero over the lake photo instead. Either way looks intentional. */
-.hero-banner { display: block; position: relative; text-align: center; background: var(--night); }
-.hero-banner .hb-img { display: block; margin: 0 auto; width: auto; height: auto; max-width: 100%; max-height: 86vh; }
+.hero-banner { display: block; position: relative; text-align: center; background: var(--night); line-height: 0; }
+.hero-banner .hb-img { display: block; width: 100%; height: auto; max-height: 94vh; object-fit: contain; margin: 0 auto; }
 .hb-fallback-text { display: none; }
-.banner-hero-cd { position: relative; z-index: 1; text-align: center; padding: clamp(1.4rem, 4vw, 2.2rem) 1rem; background: var(--night); }
-.banner-hero-cd .kicker { display: block; margin-bottom: .9rem; }
+.banner-hero-cd { position: relative; z-index: 2; line-height: normal; text-align: center; padding: clamp(1.4rem, 4vw, 2.2rem) 1rem; }
+.banner-hero-cd .kicker { display: block; margin-bottom: .7rem; }
+/* when the real banner is showing, float the countdown over its lower edge */
+.hero-banner:not(.fallback) .banner-hero-cd {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: clamp(1rem, 3vw, 1.6rem) 1rem clamp(.9rem, 2.5vw, 1.4rem);
+  background: linear-gradient(to top, rgba(18,10,14,.92) 0%, rgba(18,10,14,.5) 42%, transparent 78%);
+}
 
 /* fallback (no banner file yet): lake photo + title */
 .hero-banner.fallback { min-height: 64vh; display: flex; flex-direction: column; justify-content: center;
