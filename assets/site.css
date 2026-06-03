@@ -241,6 +241,17 @@ section { position: relative; z-index: 2; padding: var(--pad-sec); max-width: va
 .hub-card p { font-size: var(--t-sm); color: rgba(255,243,230,.92); line-height: 1.4; }
 .hub-card .arrow { font-family: var(--f-mono); margin-top: .8rem; font-size: .8rem; color: #fff; }
 
+/* food tile — stands in for a photo until a real one is dropped in.
+   Add an <img> inside .card-img and it covers the tile automatically. */
+.card-img.tile { display: flex; align-items: center; justify-content: center; }
+.card-img.tile::after { display: none; }            /* no dark gradient over a flat tile */
+.card-img.tile .emoji { font-size: clamp(2.6rem, 7vw, 3.6rem); filter: drop-shadow(0 3px 8px rgba(0,0,0,.35)); }
+.card-img.tile img { position: absolute; inset: 0; }  /* a real photo, when present, sits on top */
+.c-roof { background: linear-gradient(150deg, #ff2e7e, #ff5a1f 60%, #2a0e1a); }
+.c-table { background: linear-gradient(150deg, #ff8c00, #b5613a 60%, #2a0e1a); }
+.c-market { background: linear-gradient(150deg, #06d6c4, #2e7d32 60%, #16060e); }
+.c-hall { background: linear-gradient(150deg, #7a5cff, #ff5a1f 70%, #16060e); }
+
 /* footer */
 .site-foot { position: relative; z-index: 2; text-align: center; padding: 3.5rem 1.5rem 4rem; border-top: 1px solid var(--line); }
 .site-foot .big { font-family: var(--f-disp); text-transform: uppercase; font-size: clamp(2rem, 7vw, 4.5rem); line-height: .9;
