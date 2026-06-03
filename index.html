@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=6">
+<link rel="stylesheet" href="assets/site.css?v=7">
 </head>
 <body>
 
@@ -30,14 +30,18 @@
   </div>
 </nav>
 
-<header class="hero">
-  <div class="hero-bg"><img src="assets/img/hero-home.jpg" alt="Estrella Mountain Ranch lake at sunset"></div>
-  <div class="hero-inner">
-    <div class="kicker reveal">Connecticut &middot; Arizona &middot; Philippines</div>
-    <h1 class="reveal">The Next Chapter<span class="line2">New home. New chapter. Same family.</span></h1>
-    <div class="countdown reveal" id="countdown"></div>
+<header class="hero-banner">
+  <img class="hb-img" src="assets/img/hero-banner.jpg"
+       alt="The Great Pennington Migration — Connecticut, Arizona, Philippines — July 2, 2026"
+       onerror="this.closest('.hero-banner').classList.add('fallback'); this.remove();">
+  <div class="hb-fallback-text">
+    <div class="kicker">Connecticut &middot; Arizona &middot; Philippines</div>
+    <h1>The Next Chapter<span class="line2">New home. New chapter. Same family.</span></h1>
   </div>
-  <div class="scroll-cue">scroll &darr;</div>
+  <div class="banner-hero-cd">
+    <span class="kicker">Counting down to the next chapter</span>
+    <div class="countdown" id="countdown"></div>
+  </div>
 </header>
 
 <section>
@@ -81,6 +85,6 @@
   <p>New home. New chapter. Same family. Always together.<br>The Great Pennington Migration &middot; Connecticut &middot; Arizona &middot; Philippines &middot; July 2, 2026</p>
 </footer>
 
-<script src="assets/site.js?v=6"></script>
+<script src="assets/site.js?v=7"></script>
 </body>
 </html>
