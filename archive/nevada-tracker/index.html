@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  (function(){
+    if (/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      var dest = location.href.replace(/\/index\.html$/, '').replace(/\/$/, '') + '/mobile.html';
+      location.replace(dest);
+    }
+  })();
+</script>
+<title>The Great Pennington Migration — April 2026</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/cormorant-garamond@5/700.css" rel="stylesheet">
+<style>
+:root {
+  --sand:      #EFE8DB; --sand-lt:   #F7F2EA; --sand-mid:  #E6DBCB; --sand-dk:   #D8CAAF;
+  --copper:    #B86A2A; --copper-dk: #8A4E1C; --copper-lt: #D4915A;
+  --turquoise: #2A8FA5; --gold: #E8A020;
+  --brown:     #4A2608; --brown-lt:  #7A4A20;
+  --border:    rgba(184,106,42,0.18); --border-md: rgba(184,106,42,0.32); --border-str: rgba(184,106,42,0.55);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--sand); color: var(--brown); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+/* HEADER */
+.header {
+  background: linear-gradient(100deg,
+    #EFE8DB 0%,
+    #EAD5B5 18%,
+    #D8A870 34%,
+    #A86030 50%,
+    #5C2E12 66%,
+    #2A1008 82%,
+    #120800 100%
+  );
+  border-bottom: 1px solid rgba(184,106,42,0.4);
+  flex-shrink: 0;
+}
+.header-top { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px 8px; gap: 12px; }
+.logo { display: flex; align-items: stretch; }
+.logo-bar {
+  width: 4px;
+  background: linear-gradient(to bottom, #FF4400, #00A8D8);
+  border-radius: 3px;
+  margin-right: 12px;
+  flex-shrink: 0;
+  box-shadow: 0 0 10px rgba(255,100,0,0.7), 0 0 22px rgba(255,100,0,0.28);
+}
+.logo-text { display: flex; flex-direction: column; justify-content: center; line-height: 1; }
+.logo-great { font-size: 10px; font-weight: 700; letter-spacing: 0.38em; color: rgba(90,50,15,0.72); text-transform: uppercase; margin-bottom: 1px; }
+/* padding-bottom lets the "g" descender breathe; background-clip fills it too */
+.logo-penn { font-family: "Cormorant Garamond", serif; font-size: 32px; font-weight: 700; background: linear-gradient(135deg, #FF4400 0%, #00A8D8 48%, #FFBE00 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.15; padding-bottom: 4px; filter: drop-shadow(0 1px 5px rgba(0,0,0,0.55)); }
+.logo-bot { display: flex; align-items: baseline; justify-content: space-between; margin-top: 2px; min-width: 168px; }
+.logo-migration { font-size: 10px; font-weight: 700; letter-spacing: 0.38em; color: rgba(90,50,15,0.72); text-transform: uppercase; }
+.logo-nv { font-size: 10px; font-weight: 600; letter-spacing: 0.22em; color: #A06030; text-transform: uppercase; margin-left: 18px; }
+.header-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.disclaimer { font-size: 10px; color: rgba(210,170,100,0.7); white-space: nowrap; }
+.saved-flash { font-size: 10px; color: #80E080; opacity: 0; transition: opacity 0.3s; font-weight: 600; white-space: nowrap; }
+.saved-flash.show { opacity: 1; }
+.hdr-btn { font-size: 11px; padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border-md); background: transparent; cursor: pointer; font-weight: 600; transition: all 0.15s; white-space: nowrap; }
+.export-btn { color: #F0C090; }
+.export-btn:hover { background: rgba(240,192,144,0.18); border-color: #F0C090; }
+.sync-btn { color: #80D0F0; border-color: rgba(128,208,240,0.45); }
+.sync-btn:hover { background: rgba(128,208,240,0.18); border-color: #80D0F0; }
+.sync-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.tab-bar { display: flex; padding: 0 20px; border-top: 1px solid rgba(184,106,42,0.2); background: linear-gradient(100deg, rgba(239,232,219,0) 45%, rgba(40,18,5,0.12) 100%); }
+.tab-btn { background: none; border: none; border-bottom: 2px solid transparent; padding: 7px 16px; font-size: 13px; font-weight: 500; color: var(--brown-lt); cursor: pointer; transition: all 0.15s; }
+.tab-btn.active { color: #C4511A; border-bottom-color: #C4511A; font-weight: 600; }
+
+/* PAGES */
+.page { display: none; flex: 1; overflow: hidden; }
+.page.active { display: flex; }
+.leaflet-container { background: #ddd; }
+.leaflet-popup-content { margin: 0; }
+.leaflet-popup-content-wrapper { border-radius: 10px !important; padding: 0 !important; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.22) !important; }
+
+/* LOADING */
+.loading-overlay { position: fixed; inset: 0; background: var(--sand); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; gap: 14px; transition: opacity 0.3s; }
+.loading-overlay.hidden { opacity: 0; pointer-events: none; }
+.loading-spinner { width: 32px; height: 32px; border: 3px solid var(--border-md); border-top-color: var(--copper); border-radius: 50%; animation: spin 0.8s linear infinite; }
+.loading-text { font-size: 12px; color: var(--brown-lt); letter-spacing: 0.1em; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* COMMUNITY SIDEBAR */
+.side { width: 286px; min-width: 286px; display: flex; flex-direction: column; background: var(--sand-mid); border-right: 1px solid var(--border-md); overflow: hidden; }
+.filters { display: flex; gap: 5px; padding: 9px 10px; border-bottom: 1px solid var(--border-md); background: var(--sand-dk); flex-shrink: 0; }
+.fbtn { font-size: 11px; padding: 4px 12px; border-radius: 20px; border: 1px solid var(--border-md); background: #fff; cursor: pointer; color: var(--brown-lt); font-weight: 500; transition: all 0.15s; }
+.fbtn.on { background: var(--copper); color: #fff; border-color: var(--copper); }
+.clist { flex: 1; overflow-y: auto; padding: 8px; }
+.cc { border-radius: 10px; border: 1px solid var(--border); margin-bottom: 9px; cursor: pointer; background: #fff; overflow: hidden; transition: all 0.15s; }
+.cc:hover { border-color: var(--border-str); box-shadow: 0 3px 12px rgba(184,106,42,0.12); }
+.cc.on { border: 2px solid var(--copper); box-shadow: 0 4px 16px rgba(184,106,42,0.2); }
+.cc-photo-wrap { height: 86px; position: relative; overflow: hidden; background: var(--sand-dk); }
+.cc-photo { height: 100%; width: 100%; background-size: cover; background-position: center; }
+.cc-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(74,38,8,0.6) 0%, transparent 58%); pointer-events: none; }
+.cc-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.88); border: none; border-radius: 50%; width: 22px; height: 22px; font-size: 15px; cursor: pointer; color: var(--brown); z-index: 4; display: flex; align-items: center; justify-content: center; padding: 0; line-height: 1; }
+.cc-nav:hover { background: #fff; }
+.cc-nav-prev { left: 5px; }
+.cc-nav-next { right: 5px; }
+.cc-photo-count { position: absolute; bottom: 5px; right: 7px; background: rgba(0,0,0,0.42); color: #fff; font-size: 9px; padding: 1px 5px; border-radius: 3px; pointer-events: none; z-index: 3; }
+.cc-body { padding: 10px 12px 11px; }
+.cc-head { display: flex; align-items: center; gap: 7px; margin-bottom: 2px; }
+.cdot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.cc-name { font-size: 13px; font-weight: 700; color: var(--brown); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cc-edit { background: none; border: none; font-size: 13px; cursor: pointer; color: var(--copper-lt); padding: 0 2px; opacity: 0.55; flex-shrink: 0; transition: opacity 0.15s; line-height: 1; }
+.cc-edit:hover { opacity: 1; }
+.cc-sub { font-size: 10px; color: var(--brown-lt); margin-bottom: 5px; font-weight: 500; }
+.cc-desc { font-size: 11px; color: var(--brown-lt); line-height: 1.45; margin-bottom: 6px; }
+.tags { display: flex; flex-wrap: wrap; gap: 3px; }
+.tag { font-size: 10px; padding: 2px 6px; border-radius: 4px; background: var(--sand-mid); color: var(--brown); border: 1px solid var(--border); }
+.cc-foot { font-size: 10px; color: var(--copper-lt); margin-top: 6px; font-style: italic; }
+.mwrap { flex: 1; position: relative; }
+#m1, #m2 { width: 100%; height: 100%; }
+.hint { font-size: 10px; color: var(--brown-lt); padding: 6px 12px; border-top: 1px solid var(--border-md); flex-shrink: 0; text-align: center; background: var(--sand-dk); }
+
+/* COMPARISON SIDE */
+.comp-side { width: 300px; min-width: 300px; display: flex; flex-direction: column; background: var(--sand-mid); border-right: 1px solid var(--border-md); overflow: hidden; }
+.comp-top { padding: 8px 10px; border-bottom: 1px solid var(--border-md); background: var(--sand-dk); flex-shrink: 0; }
+.comp-top-label { font-size: 11px; color: var(--brown-lt); font-weight: 600; }
+.comp-list { flex: 1; overflow-y: scroll; padding: 7px; display: block; scrollbar-width: thin; scrollbar-color: rgba(184,106,42,0.4) transparent; }
+.hc { margin-bottom: 8px; }
+
+/* PROPERTY CARDS */
+.hc { border-radius: 9px; border: 1px solid var(--border-md); background: #fff; cursor: pointer; transition: all 0.15s; overflow: hidden; }
+.hc:hover { border-color: var(--border-str); box-shadow: 0 3px 10px rgba(184,106,42,0.14); }
+.hc.on { border: 2px solid var(--copper); box-shadow: 0 4px 14px rgba(184,106,42,0.22); }
+.hc-inner { display: flex; align-items: flex-start; }
+
+/*
+  THUMBNAIL COLUMN: block container with explicit height + in-flow image.
+  height: 76px AND a display:block img child = bulletproof in all browsers.
+  Comm-bar overlays on top via absolute. Nav buttons and upload also absolute.
+*/
+.hc-thumb-col {
+  width: 76px;
+  min-width: 76px;
+  height: 76px;
+  min-height: 76px;
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+  margin: 8px 0 8px 8px;
+  border-radius: 7px;
+  background: var(--sand-mid);
+}
+.hc-comm-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  z-index: 2;
+}
+/* div instead of img: explicit dimensions NEVER collapse regardless of load failures */
+.hc-thumb {
+  width: 76px;
+  height: 76px;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--sand-mid);
+  flex-shrink: 0;
+}
+
+/* Nav overlay buttons — absolute on top of image */
+.hc-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.9);
+  border: none;
+  border-radius: 50%;
+  width: 16px; height: 16px;
+  font-size: 11px;
+  cursor: pointer;
+  color: var(--brown);
+  z-index: 3;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0; line-height: 1;
+  margin-top: 1px;   /* nudge below comm-bar visually */
+}
+.hc-nav-prev { left: 1px; }
+.hc-nav-next { right: 1px; }
+.hc-photo-count {
+  position: absolute;
+  bottom: 20px;
+  left: 50%; transform: translateX(-50%);
+  background: rgba(0,0,0,0.44);
+  color: #fff; font-size: 8px;
+  padding: 1px 4px; border-radius: 3px;
+  z-index: 3; pointer-events: none; white-space: nowrap;
+}
+.hc-upload {
+  position: absolute;
+  bottom: 4px; left: 50%; transform: translateX(-50%);
+  background: rgba(255,255,255,0.92);
+  border: 1px solid var(--border-md);
+  border-radius: 4px;
+  padding: 2px 5px;
+  font-size: 9px; color: var(--copper);
+  cursor: pointer; font-weight: 600; white-space: nowrap; z-index: 3;
+}
+.hc-upload input { display: none; }
+
+.hc-details { flex: 1; padding: 8px 10px 9px; display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
+.hc-addr-row { display: flex; align-items: center; gap: 4px; margin-bottom: 3px; }
+.hc-addr { font-size: 11px; font-weight: 700; color: #2a1000; line-height: 1.3; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hc-edit { background: none; border: none; font-size: 12px; cursor: pointer; color: var(--copper-lt); padding: 0 1px; opacity: 0.55; flex-shrink: 0; transition: opacity 0.15s; line-height: 1; }
+.hc-edit:hover { opacity: 1; }
+.hc-meta { display: flex; align-items: center; gap: 5px; margin-bottom: 5px; flex-wrap: wrap; }
+.bdg { font-size: 9px; padding: 1px 5px; border-radius: 3px; font-weight: 600; white-space: nowrap; }
+.hc-price-line { display: flex; align-items: baseline; gap: 8px; margin-bottom: 3px; }
+.hc-price { font-size: 15px; font-weight: 700; color: var(--copper); line-height: 1; }
+.hc-dom { font-size: 9px; color: var(--brown-lt); }
+.hc-stats-line { font-size: 10px; color: var(--brown-lt); margin-bottom: 5px; font-weight: 500; }
+.hc-feats { display: flex; flex-wrap: wrap; gap: 2px; margin-bottom: 6px; }
+.feat { font-size: 9px; padding: 1px 5px; border-radius: 8px; background: var(--sand); color: var(--brown); border: 1px solid var(--border); white-space: nowrap; }
+.stars { display: flex; gap: 2px; margin-bottom: 5px; }
+.star { font-size: 15px; cursor: pointer; color: var(--sand-dk); line-height: 1; transition: color 0.1s, transform 0.1s; }
+.star.lit { color: var(--gold); }
+.star:hover { color: var(--copper-lt); transform: scale(1.15); }
+.hnotes { width: 100%; font-size: 10px; border: 1px solid var(--border-md); border-radius: 5px; padding: 4px 7px; resize: none; height: 38px; background: var(--sand-lt); color: var(--brown); font-family: inherit; outline: none; transition: border-color 0.15s; line-height: 1.4; margin-bottom: 5px; }
+.hnotes:focus { border-color: var(--copper); background: #fff; }
+.hnotes::placeholder { color: var(--sand-dk); font-style: italic; }
+.zlink { display: block; text-align: center; font-size: 9px; padding: 4px 0; border-radius: 5px; border: 1px solid rgba(42,143,165,0.35); color: var(--turquoise); text-decoration: none; font-weight: 600; background: rgba(42,143,165,0.05); transition: all 0.15s; }
+.zlink:hover { background: rgba(42,143,165,0.12); border-color: var(--turquoise); }
+
+/* FOOTER */
+.app-footer { flex-shrink: 0; text-align: center; padding: 4px; background: var(--sand-dk); border-top: 1px solid var(--border); }
+.import-link { font-size: 10px; color: var(--brown-lt); cursor: pointer; background: none; border: none; padding: 0; font-family: inherit; opacity: 0.6; transition: opacity 0.15s; }
+.import-link:hover { opacity: 1; color: var(--copper); }
+
+/* EDIT MODAL */
+.modal-back { display: none; position: fixed; inset: 0; background: rgba(74,38,8,0.4); z-index: 2000; align-items: center; justify-content: center; padding: 16px; }
+.modal-back.open { display: flex; }
+.edit-modal { background: #fff; border-radius: 14px; width: 100%; max-width: 520px; max-height: 90vh; display: flex; flex-direction: column; box-shadow: 0 20px 60px rgba(74,38,8,0.28); }
+.em-head { display: flex; align-items: flex-start; justify-content: space-between; padding: 18px 20px 14px; border-bottom: 1px solid var(--border); flex-shrink: 0; gap: 12px; }
+.em-title { font-size: 14px; font-weight: 700; color: var(--brown); line-height: 1.3; }
+.em-close { background: none; border: none; font-size: 22px; cursor: pointer; color: var(--brown-lt); padding: 0 4px; border-radius: 5px; line-height: 1; flex-shrink: 0; }
+.em-close:hover { background: var(--sand); }
+.em-body { flex: 1; overflow-y: auto; padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; }
+.em-foot { padding: 14px 20px; border-top: 1px solid var(--border); flex-shrink: 0; display: flex; gap: 8px; }
+.em-save { flex: 1; padding: 10px; border-radius: 8px; border: none; background: var(--copper); color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.15s; }
+.em-save:hover { background: var(--copper-dk); }
+.em-save:disabled { background: var(--sand-dk); cursor: not-allowed; }
+.em-cancel { padding: 10px 16px; border-radius: 8px; border: 1px solid var(--border-md); background: none; color: var(--brown-lt); font-size: 13px; cursor: pointer; }
+.em-delete { padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(192,57,43,0.35); background: none; color: #c0392b; font-size: 13px; cursor: pointer; transition: all 0.15s; margin-right: auto; }
+.em-delete:hover { background: rgba(192,57,43,0.07); border-color: #c0392b; }
+.add-prop-btn { font-size: 11px; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--border-md); background: none; cursor: pointer; color: var(--copper); font-weight: 600; margin-left: 8px; transition: all 0.15s; }
+.add-prop-btn:hover { background: var(--sand); border-color: var(--copper); }
+.ef { display: flex; flex-direction: column; gap: 4px; }
+.ef label { font-size: 10px; font-weight: 600; color: var(--brown-lt); text-transform: uppercase; letter-spacing: 0.06em; }
+.ef input, .ef textarea { border: 1px solid var(--border-md); border-radius: 6px; padding: 7px 10px; font-size: 12px; color: var(--brown); background: var(--sand-lt); font-family: inherit; outline: none; transition: border-color 0.15s; width: 100%; }
+.ef input:focus, .ef textarea:focus { border-color: var(--copper); background: #fff; }
+.ef textarea { resize: vertical; min-height: 60px; }
+.ef-row { display: flex; gap: 8px; }
+.ef-row .ef { flex: 1; }
+
+/* PHOTO MANAGER IN MODAL */
+.mphoto-list { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; min-height: 90px; align-items: flex-start; }
+.mphoto-item { position: relative; flex-shrink: 0; width: 78px; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.mphoto-thumb { width: 78px; height: 78px; border-radius: 6px; overflow: hidden; border: 1px solid var(--border-md); background: var(--sand-mid); position: relative; }
+.mphoto-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mphoto-badge { position: absolute; bottom: 2px; left: 2px; background: rgba(0,0,0,0.5); color: #fff; font-size: 8px; padding: 1px 4px; border-radius: 2px; }
+.mphoto-controls { display: flex; gap: 3px; }
+.mphoto-btn-sm { background: none; border: 1px solid var(--border-md); border-radius: 4px; cursor: pointer; font-size: 10px; color: var(--brown-lt); padding: 2px 5px; line-height: 1.2; transition: all 0.12s; }
+.mphoto-btn-sm:hover { border-color: var(--copper); color: var(--copper); }
+.mphoto-btn-sm.rm { color: #c0392b; border-color: rgba(192,57,43,0.3); }
+.mphoto-btn-sm.rm:hover { background: rgba(192,57,43,0.08); border-color: #c0392b; }
+.mphoto-btn-sm:disabled { opacity: 0.25; cursor: not-allowed; }
+.mphoto-btn-spacer { display: inline-block; width: 27px; height: 22px; }
+.mphoto-add { display: flex; gap: 6px; align-items: center; margin-top: 6px; }
+.mphoto-add input[type=text] { flex: 1; border: 1px solid var(--border-md); border-radius: 6px; padding: 6px 9px; font-size: 11px; color: var(--brown); background: var(--sand-lt); outline: none; font-family: inherit; min-width: 0; }
+.mphoto-add input[type=text]:focus { border-color: var(--copper); background: #fff; }
+.mphoto-add-btn { font-size: 11px; padding: 6px 10px; border-radius: 6px; border: 1px solid rgba(42,143,165,0.35); background: none; cursor: pointer; font-weight: 600; white-space: nowrap; color: var(--turquoise); transition: all 0.15s; }
+.mphoto-add-btn:hover { background: rgba(42,143,165,0.08); border-color: var(--turquoise); }
+.mphoto-upload-btn { font-size: 11px; padding: 6px 10px; border-radius: 6px; border: 1px solid var(--border-md); background: none; cursor: pointer; font-weight: 600; white-space: nowrap; color: var(--copper); }
+.mphoto-upload-btn input { display: none; }
+
+/* ZILLOW IMPORT */
+.import-back { display: none; position: fixed; inset: 0; background: rgba(74,38,8,0.45); z-index: 1000; align-items: flex-end; justify-content: center; }
+.import-back.open { display: flex; }
+.import-panel { background: #fff; border-radius: 14px 14px 0 0; width: 100%; max-width: 760px; padding: 24px 28px 28px; box-shadow: 0 -8px 40px rgba(74,38,8,0.22); max-height: 90vh; overflow-y: auto; }
+.imp-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+.imp-title { font-size: 15px; font-weight: 700; color: var(--brown); }
+.imp-sub { font-size: 11px; color: var(--brown-lt); margin-top: 2px; }
+.imp-close { background: none; border: none; font-size: 20px; cursor: pointer; color: var(--brown-lt); line-height: 1; padding: 2px 6px; border-radius: 5px; }
+.imp-close:hover { background: var(--sand); }
+.imp-body { display: flex; gap: 20px; }
+.imp-left { flex: 1; min-width: 0; }
+.imp-right { width: 260px; min-width: 260px; }
+.drop-zone { border: 2px dashed var(--border-md); border-radius: 10px; min-height: 140px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: all 0.15s; background: var(--sand-lt); padding: 16px; text-align: center; position: relative; }
+.drop-zone.drag-over { border-color: var(--turquoise); background: rgba(42,143,165,0.06); }
+.drop-zone img { max-width: 100%; max-height: 130px; object-fit: contain; border-radius: 6px; }
+.dz-hint { font-size: 11px; color: var(--brown-lt); }
+.dz-icon { font-size: 26px; opacity: 0.4; }
+.drop-zone input[type=file] { display: none; }
+.imp-extract { width: 100%; margin-top: 10px; padding: 9px; border-radius: 8px; border: none; background: var(--copper); color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.15s; }
+.imp-extract:hover { background: var(--copper-dk); }
+.imp-extract:disabled { background: var(--sand-dk); color: var(--brown-lt); cursor: not-allowed; }
+.imp-fields { display: flex; flex-direction: column; gap: 8px; }
+.imp-field { display: flex; flex-direction: column; gap: 3px; }
+.imp-field label { font-size: 10px; font-weight: 600; color: var(--brown-lt); text-transform: uppercase; letter-spacing: 0.06em; }
+.imp-field input { border: 1px solid var(--border-md); border-radius: 6px; padding: 6px 9px; font-size: 12px; color: var(--brown); background: var(--sand-lt); font-family: inherit; outline: none; }
+.imp-field input:focus { border-color: var(--copper); background: #fff; }
+.imp-field-row { display: flex; gap: 8px; }
+.imp-field-row .imp-field { flex: 1; }
+.imp-status { font-size: 11px; margin-top: 6px; min-height: 18px; color: var(--brown-lt); font-style: italic; }
+.imp-status.err { color: #c0392b; font-style: normal; }
+.imp-copy { width: 100%; margin-top: 12px; padding: 9px; border-radius: 8px; border: 1px solid var(--border-md); background: none; color: var(--turquoise); font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+.imp-copy:hover { background: rgba(42,143,165,0.08); border-color: var(--turquoise); }
+.imp-output { margin-top: 10px; background: var(--sand-lt); border: 1px solid var(--border-md); border-radius: 8px; padding: 10px 12px; font-size: 10px; font-family: "SF Mono", "Fira Code", monospace; color: var(--brown); white-space: pre; overflow-x: auto; display: none; line-height: 1.7; }
+
+::-webkit-scrollbar { width: 4px; }
+
+/* LIGHTBOX */
+.lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:9000; align-items:center; justify-content:center; }
+.lightbox.open { display:flex; }
+.lightbox-img { max-width:92vw; max-height:88vh; object-fit:contain; border-radius:6px; box-shadow:0 8px 60px rgba(0,0,0,0.6); }
+.lightbox-close { position:absolute; top:16px; right:20px; background:none; border:none; color:#fff; font-size:28px; cursor:pointer; opacity:0.7; line-height:1; z-index:9001; }
+.lightbox-close:hover { opacity:1; }
+.lightbox-prev, .lightbox-nav-next { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.12); border:none; color:#fff; font-size:26px; cursor:pointer; padding:12px 16px; border-radius:6px; z-index:9001; transition:background 0.15s; }
+.lightbox-prev { left:12px; }
+.lightbox-nav-next { right:12px; }
+.lightbox-prev:hover, .lightbox-nav-next:hover { background:rgba(255,255,255,0.22); }
+.lightbox-counter { position:absolute; bottom:18px; left:50%; transform:translateX(-50%); color:rgba(255,255,255,0.6); font-size:12px; font-family:inherit; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-str); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<div class="loading-overlay" id="loading">
+  <div class="loading-spinner"></div>
+  <div class="loading-text" id="loading-text">Loading properties...</div>
+</div>
+
+<div class="header">
+  <div class="header-top">
+    <div class="logo">
+      <div class="logo-bar"></div>
+      <div class="logo-text">
+        <div class="logo-great">The Great</div>
+        <div class="logo-penn">Pennington</div>
+        <div class="logo-bot">
+          <div class="logo-migration">Migration</div>
+          <div class="logo-nv">Nevada &nbsp;·&nbsp; 2026</div>
+        </div>
+      </div>
+    </div>
+    <div class="header-right">
+      <span class="disclaimer">* Prices estimated</span>
+      <span class="saved-flash" id="saved-flash">Saved &#10003;</span>
+      <button class="hdr-btn sync-btn" id="sync-btn" onclick="syncData()">&#8635; Sync</button>
+      <button class="hdr-btn export-btn" onclick="exportNotes()">Export &#8595;</button>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="gTab(0)">Community explorer</button>
+    <button class="tab-btn" onclick="gTab(1)">Comparison tracker</button>
+  </div>
+</div>
+
+<div id="pg0" class="page active">
+  <div class="side">
+    <div class="filters">
+      <button class="fbtn on" onclick="fDay('all',this)">All</button>
+      <button class="fbtn" onclick="fDay('W',this)">Wednesday</button>
+      <button class="fbtn" onclick="fDay('T',this)">Thursday</button>
+    </div>
+    <div class="clist" id="clist"></div>
+    <div class="hint">Click a community to zoom &amp; filter the map</div>
+  </div>
+  <div class="mwrap"><div id="m1"></div></div>
+</div>
+
+<div id="pg1" class="page">
+  <div class="comp-side">
+    <div class="comp-top" style="display:flex;align-items:center;">
+      <span class="comp-top-label" id="rated-count">Loading...</span>
+      <button class="add-prop-btn" onclick="openAddProp()">+ Add</button>
+    </div>
+    <div class="comp-list" id="cgrid"></div>
+  </div>
+  <div class="mwrap"><div id="m2"></div></div>
+</div>
+
+<footer class="app-footer">
+  <button class="import-link" onclick="openImport()">&#9881; Zillow import tool</button>
+</footer>
+
+<!-- Edit Modal -->
+<div class="modal-back" id="edit-modal" onclick="closeEditIfBack(event)">
+  <div class="edit-modal">
+    <div class="em-head">
+      <div class="em-title" id="em-title">Edit</div>
+      <button class="em-close" onclick="closeEdit()">&#215;</button>
+    </div>
+    <div class="em-body" id="em-body"></div>
+    <div class="em-foot">
+      <button class="em-delete" id="em-delete" onclick="deleteItem()" style="display:none">Delete</button>
+      <button class="em-cancel" onclick="closeEdit()">Cancel</button>
+      <button class="em-save" id="em-save" onclick="saveEdit()">Save changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Zillow Import -->
+<div class="import-back" id="import-back" onclick="closeImportIfBack(event)">
+  <div class="import-panel">
+    <div class="imp-head">
+      <div>
+        <div class="imp-title">Zillow Screenshot Import</div>
+        <div class="imp-sub">Drop a screenshot to extract listing details into a JSON snippet.</div>
+      </div>
+      <button class="imp-close" onclick="closeImport()">&#215;</button>
+    </div>
+    <div class="imp-body">
+      <div class="imp-left">
+        <div class="drop-zone" id="drop-zone" onclick="document.getElementById('img-input').click()" ondragover="dzOver(event)" ondragleave="dzLeave()" ondrop="dzDrop(event)">
+          <div class="dz-icon" id="dz-icon">&#127968;</div>
+          <div class="dz-hint" id="dz-hint">Click or drag a Zillow screenshot here</div>
+          <img id="dz-preview" style="display:none" alt="">
+          <input type="file" id="img-input" accept="image/*" onchange="dzFile(this.files[0])">
+        </div>
+        <button class="imp-extract" id="imp-extract" onclick="runExtract()" disabled>Extract listing details</button>
+        <div class="imp-status" id="imp-status"></div>
+      </div>
+      <div class="imp-right">
+        <div class="imp-fields">
+          <div class="imp-field"><label>Address</label><input id="if-addr" placeholder="Street address"></div>
+          <div class="imp-field"><label>Price</label><input id="if-price" placeholder="$000,000"></div>
+          <div class="imp-field-row">
+            <div class="imp-field"><label>Beds</label><input id="if-beds" placeholder="4"></div>
+            <div class="imp-field"><label>Baths</label><input id="if-baths" placeholder="3"></div>
+          </div>
+          <div class="imp-field-row">
+            <div class="imp-field"><label>Sqft</label><input id="if-sqft" placeholder="2500"></div>
+            <div class="imp-field"><label>Days listed</label><input id="if-dom" placeholder="14"></div>
+          </div>
+        </div>
+        <button class="imp-copy" id="imp-copy-btn" onclick="copySnippet()">Copy JSON snippet</button>
+        <pre class="imp-output" id="imp-output"></pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="lbClose(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">&#215;</button>
+  <button class="lightbox-prev" onclick="lbNav(-1,event)">&#8249;</button>
+  <img class="lightbox-img" id="lb-img" alt="">
+  <button class="lightbox-nav-next" onclick="lbNav(1,event)">&#8250;</button>
+  <div class="lightbox-counter" id="lb-counter"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* ============================================================
+   CONFIG
+   ============================================================ */
+const SUPA_URL = 'https://kqsmprkeavuchcpnixfx.supabase.co';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtxc21wcmtlYXZ1Y2hjcG5peGZ4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwODg3OTQsImV4cCI6MjA5MTY2NDc5NH0.9VC01RrDwxViNimZ9ZYGEU8eKatrAlf82DHWebbMTuQ';
+const db = window.supabase.createClient(SUPA_URL, SUPA_KEY);
+
+/* ============================================================
+   STATE
+   ============================================================ */
+let C = [];
+const SBP = {};      // Supabase property_data keyed by id
+const SBC = {};      // Supabase community_data keyed by id
+const st = { day:'all', sc:null, sh:null, pidx:{} };
+let m1, m2, mk1={}, mk2={};
+let editMode=null, editId=null, mPhotos=[];
+const nTimers = {};
+
+/* ============================================================
+   BOOTSTRAP
+   ============================================================ */
+(async function bootstrap() {
+  try {
+    const [jsonData] = await Promise.all([
+      fetch('data/properties.json').then(r => { if (!r.ok) throw new Error('JSON ' + r.status); return r.json(); }),
+      loadSB()
+    ]);
+    C = jsonData.communities;
+    rClist(); rGrid(); iM1(); iM2();
+    document.getElementById('loading').classList.add('hidden');
+    setTimeout(() => document.getElementById('loading').remove(), 400);
+  } catch(e) {
+    document.getElementById('loading-text').textContent = 'Load error: ' + e.message;
+  }
+})();
+
+/* ============================================================
+   SUPABASE
+   ============================================================ */
+async function loadSB() {
+  const [p, c] = await Promise.all([
+    db.from('property_data').select('*'),
+    db.from('community_data').select('*')
+  ]);
+  (p.data||[]).forEach(r => SBP[r.id] = r);
+  (c.data||[]).forEach(r => SBC[r.id] = r);
+}
+
+async function syncData() {
+  const btn = document.getElementById('sync-btn');
+  btn.disabled = true; btn.innerHTML = '&#8635; Syncing...';
+  await loadSB();
+  rClist(); rGrid();
+  btn.disabled = false; btn.innerHTML = '&#8635; Sync';
+  flash();
+}
+
+function flash() {
+  const el = document.getElementById('saved-flash');
+  if (!el) return;
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 2000);
+}
+
+/* ============================================================
+   DATA HELPERS
+   ============================================================ */
+function merged(h, c) {
+  const sb = SBP[h.id] || {};
+  return {
+    ...h,
+    cid:c.id, cn:c.name, clr:c.color, dk:c.colorDark, d:c.day, cphoto:c.photo,
+    address:  sb.address  || h.address,
+    price:    sb.price    || h.price,
+    beds:     sb.beds     ?? h.beds,
+    baths:    sb.baths    ?? h.baths,
+    sqft:     sb.sqft     ?? h.sqft,
+    dom:      sb.dom      ?? h.dom,
+    features: sb.features || h.features,
+    zillow:   sb.zillow   || h.zillow,
+    rating:   sb.rating   || 0,
+    notes:    sb.notes    || '',
+  };
+}
+function flat() {
+  // JSON properties, filtered if deleted via Supabase flag
+  const jsonProps = C.flatMap(c =>
+    c.properties
+      .filter(h => !SBP[h.id]?.deleted)
+      .map(h => merged(h, c))
+  );
+  // User-added properties stored entirely in Supabase
+  const addedProps = Object.values(SBP)
+    .filter(r => r.user_added && !r.deleted)
+    .map(r => {
+      const comm = C.find(x => x.id === r.community_id) || C[0];
+      return {
+        id: r.id, address: r.address||'', lat: r.lat||0, lng: r.lng||0,
+        cid: comm.id, cn: comm.name, clr: comm.color, dk: comm.colorDark,
+        d: comm.day, cphoto: comm.photo, photo: '',
+        price: r.price||'', beds: r.beds||0, baths: r.baths||0,
+        sqft: r.sqft||0, dom: r.dom||0, features: r.features||[],
+        zillow: r.zillow||'', rating: r.rating||0, notes: r.notes||'',
+        photos: r.photos||[], isUserAdded: true,
+      };
+    });
+  return [...jsonProps, ...addedProps];
+}
+function propPhotos(h) {
+  if (h.isUserAdded) return (h.photos||[]).filter(Boolean);
+  const sb = SBP[h.id];
+  if (sb?.photos?.length) return sb.photos; // Supabase photos = full list (includes base)
+  return [h.photo].filter(Boolean);          // fallback: JSON base only
+}
+function commPhotos(c) {
+  const sb = SBC[c.id];
+  if (sb?.photos?.length) return sb.photos;
+  return [c.photo].filter(Boolean);
+}
+function currentPhoto(h) {
+  const photos = propPhotos(h);
+  return photos[Math.min(st.pidx[h.id]||0, photos.length-1)] || h.cphoto || '';
+}
+
+/* ============================================================
+   COMMUNITY EXPLORER
+   ============================================================ */
+function rClist() {
+  const dn = { W:'Wednesday', T:'Thursday' };
+  const list = st.day==='all' ? C : C.filter(c=>c.day===st.day);
+  document.getElementById('clist').innerHTML = list.map(c => {
+    const sb = SBC[c.id]||{};
+    const name=sb.name||c.name, desc=sb.description||c.desc;
+    const amenities=sb.amenities||c.amenities, hoa=sb.hoa||c.hoa;
+    const photos=commPhotos(c);
+    const key='c_'+c.id;
+    const idx=Math.min(st.pidx[key]||0,photos.length-1);
+    return `<div class="cc${st.sc===c.id?' on':''}" style="${st.sc===c.id?'border-color:'+c.colorDark+';':''}" onclick="pC('${c.id}')">
+      <div class="cc-photo-wrap">
+        <div class="cc-photo" id="ccp-${c.id}" style="background-image:url('${photos[idx]||''}')"></div>
+        <div class="cc-overlay"></div>
+        ${photos.length>1?`
+          <button class="cc-nav cc-nav-prev" onclick="navComm('${c.id}',-1,event)">&#8249;</button>
+          <button class="cc-nav cc-nav-next" onclick="navComm('${c.id}',1,event)">&#8250;</button>
+          <div class="cc-photo-count">${idx+1}/${photos.length}</div>`:``}
+      </div>
+      <div class="cc-body">
+        <div class="cc-head">
+          <div class="cdot" style="background:${c.color}"></div>
+          <span class="cc-name">${name}</span>
+          <button class="cc-edit" onclick="openCommEdit('${c.id}',event)" title="Edit">&#9998;</button>
+        </div>
+        <div class="cc-sub">${dn[c.day]} &nbsp;&middot;&nbsp; HOA ${hoa}</div>
+        <div class="cc-desc">${desc}</div>
+        <div class="tags">${amenities.map(a=>`<span class="tag">${a}</span>`).join('')}</div>
+        <div class="cc-foot">${c.properties.length} home${c.properties.length!==1?'s':''} on your list</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function navComm(id,dir,e) {
+  e.stopPropagation();
+  const c=C.find(x=>x.id===id); if(!c) return;
+  const photos=commPhotos(c), key='c_'+id;
+  st.pidx[key]=((st.pidx[key]||0)+dir+photos.length)%photos.length;
+  const el=document.getElementById('ccp-'+id);
+  if(el) el.style.backgroundImage=`url('${photos[st.pidx[key]]}')`;
+}
+function pC(id) {
+  st.sc=st.sc===id?null:id; rClist(); uM1();
+  if(st.sc){const c=C.find(x=>x.id===id); m1.flyTo(c.center,c.zoom,{duration:0.7});}
+  else m1.flyTo(dCtr(),dZ(),{duration:0.7});
+}
+function dCtr(){return st.day==='T'?[36.02,-115.00]:st.day==='W'?[36.292,-115.300]:[36.17,-115.15];}
+function dZ()  {return st.day==='all'?10:12;}
+function fDay(d,btn){
+  st.day=d; st.sc=null;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on'); rClist(); uM1(); m1.flyTo(dCtr(),dZ(),{duration:0.7});
+}
+function uM1(){
+  flat().forEach(h=>{
+    if(!mk1[h.id]) return;
+    mk1[h.id].setOpacity((st.day==='all'||h.d===st.day)&&(!st.sc||h.cid===st.sc)?1:0.1);
+  });
+}
+function iM1(){
+  m1=L.map('m1').setView([36.17,-115.15],10);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{attribution:'&copy; OpenStreetMap &copy; CartoDB',maxZoom:18}).addTo(m1);
+  flat().forEach(h=>{
+    const comm=C.find(c=>c.id===h.cid);
+    mk1[h.id]=L.marker([h.lat,h.lng],{icon:mIcon(h.clr)}).addTo(m1).bindPopup(()=>makePopup(h,comm),{maxWidth:300,minWidth:276});
+  });
+  addLeg(m1);
+}
+
+/* ============================================================
+   COMPARISON TRACKER
+   ============================================================ */
+function rGrid() {
+  const homes=flat();
+  const rated=homes.filter(h=>h.rating>0).length;
+  document.getElementById('rated-count').textContent=rated?`${rated} of ${homes.length} rated`:`${homes.length} properties`;
+  document.getElementById('cgrid').innerHTML=homes.map(h=>{
+    const photos=propPhotos(h);
+    const idx=Math.min(st.pidx[h.id]||0,photos.length-1);
+    const photo=photos[idx]||h.cphoto||'';
+    const r=h.rating;
+    return `<div class="hc${st.sh===h.id?' on':''}" style="${st.sh===h.id?'border-color:'+h.dk+';':''}" onclick="pH('${h.id}')">
+      <div class="hc-inner" style="display:flex;align-items:flex-start;">
+        <div class="hc-thumb-col" id="tc-${h.id}" style="width:76px;min-width:76px;height:76px;min-height:76px;position:relative;flex-shrink:0;align-self:flex-start;overflow:hidden;border-radius:7px;margin:8px 0 8px 8px;background:var(--sand-mid);">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${h.clr};z-index:2;"></div>
+          <div class="hc-thumb" style="position:absolute;inset:0;background-image:url('${photo||h.cphoto||''}');background-size:cover;background-position:center;cursor:zoom-in;" onclick="openLightbox('${h.id}',${idx},event)"></div>
+          ${photos.length>1?`
+            <button class="hc-nav hc-nav-prev" onclick="navProp('${h.id}',-1,event)">&#8249;</button>
+            <button class="hc-nav hc-nav-next" onclick="navProp('${h.id}',1,event)">&#8250;</button>
+            <div class="hc-photo-count">${idx+1}/${photos.length}</div>`:``}
+          <label class="hc-upload" onclick="event.stopPropagation()" title="Upload photo">
+            &#128247;<input type="file" accept="image/*" onchange="uploadPhoto('${h.id}',this.files[0])">
+          </label>
+        </div>
+        <div class="hc-details">
+          <div class="hc-addr-row">
+            <div class="hc-addr" title="${h.address}">${h.address}</div>
+            <button class="hc-edit" onclick="openPropEdit('${h.id}',event)" title="Edit">&#9998;</button>
+          </div>
+          <div class="hc-meta">
+            <span class="bdg" style="background:${h.clr}22;color:${h.dk}">${h.cn}</span>
+            <span class="bdg" style="background:#EFE8DB;color:#7A4A20">${h.d==='W'?'Wed 4/15':'Thu 4/16'}</span>
+          </div>
+          <div class="hc-price-line"><span class="hc-price">${h.price}</span><span class="hc-dom">${h.dom}d listed</span></div>
+          <div class="hc-stats-line">${h.beds}bd &nbsp;&middot;&nbsp; ${h.baths}ba &nbsp;&middot;&nbsp; ${h.sqft.toLocaleString()} sqft</div>
+          <div class="hc-feats">${h.features.slice(0,3).map(f=>`<span class="feat">${f}</span>`).join('')}</div>
+          <div class="stars" id="sr${h.id}">${[1,2,3,4,5].map(n=>`<span class="star${r>=n?' lit':''}" onclick="event.stopPropagation();setR('${h.id}',${n})">&#9733;</span>`).join('')}</div>
+          <textarea class="hnotes" id="notes-${h.id}" placeholder="Tour notes..." onclick="event.stopPropagation()" oninput="setN('${h.id}',this.value)">${h.notes}</textarea>
+          <a class="zlink" href="${h.zillow}" target="_blank" onclick="event.stopPropagation()">View on Zillow &rarr;</a>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function navProp(id,dir,e){
+  e.stopPropagation();
+  const h=flat().find(x=>x.id===id); if(!h) return;
+  const photos=propPhotos(h);
+  st.pidx[id]=((st.pidx[id]||0)+dir+photos.length)%photos.length;
+  const col=document.getElementById('tc-'+id); if(!col) return;
+  const thumb=col.querySelector('.hc-thumb');
+  const cnt=col.querySelector('.hc-photo-count');
+  if(thumb) thumb.style.backgroundImage=`url('${photos[st.pidx[id]]||h.cphoto||''}')`;
+  if(cnt) cnt.textContent=`${st.pidx[id]+1}/${photos.length}`;
+}
+
+function pH(id){
+  st.sh=st.sh===id?null:id; rGrid();
+  if(st.sh&&mk2[id]){
+    const h=flat().find(x=>x.id===id);
+    m2.flyTo([h.lat,h.lng],15,{duration:0.6});
+    Object.values(mk2).forEach(m=>m.setOpacity(0.15));
+    mk2[id].setOpacity(1).openPopup();
+  } else {
+    Object.values(mk2).forEach(m=>m.setOpacity(1));
+    m2.flyTo([36.17,-115.15],10,{duration:0.6});
+  }
+}
+async function setR(id,n){
+  SBP[id]={...(SBP[id]||{id}),rating:n};
+  document.querySelectorAll(`#sr${id} .star`).forEach((s,i)=>s.classList.toggle('lit',i<n));
+  const rated=flat().filter(h=>h.rating>0).length;
+  document.getElementById('rated-count').textContent=`${rated} of ${flat().length} rated`;
+  await db.from('property_data').upsert({id,rating:n},{onConflict:'id'});
+  flash();
+}
+function setN(id,v){
+  SBP[id]={...(SBP[id]||{id}),notes:v};
+  clearTimeout(nTimers[id]);
+  nTimers[id]=setTimeout(async()=>{
+    await db.from('property_data').upsert({id,notes:v},{onConflict:'id'});
+    flash();
+  },800);
+}
+async function uploadPhoto(id,file){
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=async e=>{
+    const img=new Image();
+    img.onload=async()=>{
+      const canvas=document.createElement('canvas');
+      const maxW=700, scale=Math.min(1,maxW/img.width);
+      canvas.width=Math.round(img.width*scale); canvas.height=Math.round(img.height*scale);
+      canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+      const dataUrl=canvas.toDataURL('image/jpeg',0.78);
+      const existing=SBP[id]?.photos||[];
+      const photos=[...existing,dataUrl];
+      SBP[id]={...(SBP[id]||{id}),photos};
+      st.pidx[id]=photos.length;
+      await db.from('property_data').upsert({id,photos},{onConflict:'id'});
+      rGrid(); flash();
+    };
+    img.src=e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+function iM2(){
+  m2=L.map('m2').setView([36.17,-115.15],10);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{attribution:'&copy; OpenStreetMap &copy; CartoDB',maxZoom:18}).addTo(m2);
+  flat().forEach(h=>{
+    mk2[h.id]=L.marker([h.lat,h.lng],{icon:mIcon(h.clr)}).addTo(m2)
+      .bindPopup(`<div style="font-family:sans-serif;padding:2px;"><b style="color:#4A2608;font-size:12px;">${h.address}</b><br><span style="color:#7A4A20;font-size:11px;">${h.cn} &middot; ${h.price}</span></div>`,{maxWidth:190});
+  });
+  addLeg(m2);
+}
+
+/* ============================================================
+   EDIT MODAL - PROPERTY
+   ============================================================ */
+function openPropEdit(id,e){
+  e.stopPropagation();
+  editMode='property'; editId=id;
+  const h=flat().find(x=>x.id===id);
+  const isAdded=!!(SBP[id]?.user_added);
+  mPhotos=[...propPhotos(h)];  // ALL photos, fully editable
+  document.getElementById('em-title').textContent=h.address||'Edit property';
+  document.getElementById('em-delete').style.display='block';
+  document.getElementById('em-body').innerHTML=`
+    <div class="ef"><label>Address</label><input id="ef-addr" value="${h.address}"></div>
+    <div class="ef"><label>Community</label><select id="ef-comm">${C.map(x=>`<option value="${x.id}"${x.id===h.cid?' selected':''}>${x.name}</option>`).join('')}</select></div>
+    <div class="ef"><label>Price</label><input id="ef-price" value="${h.price}"></div>
+    <div class="ef-row">
+      <div class="ef"><label>Beds</label><input id="ef-beds" type="number" value="${h.beds}"></div>
+      <div class="ef"><label>Baths</label><input id="ef-baths" type="number" step="0.5" value="${h.baths}"></div>
+      <div class="ef"><label>Sqft</label><input id="ef-sqft" type="number" value="${h.sqft}"></div>
+      <div class="ef"><label>Days listed</label><input id="ef-dom" type="number" value="${h.dom}"></div>
+    </div>
+    <div class="ef"><label>Features (comma-separated)</label><input id="ef-feats" value="${h.features.join(', ')}"></div>
+    <div class="ef"><label>Zillow URL</label><input id="ef-zillow" value="${h.zillow}"></div>
+    <div class="ef"><label>Notes</label><textarea id="ef-notes">${h.notes}</textarea></div>
+    <div class="ef"><label>Photos &mdash; <span style="font-weight:400;font-style:italic;text-transform:none;letter-spacing:0;">first photo shows on card; all can be reordered or deleted</span></label>
+      <div class="mphoto-list" id="mphoto-list">${renderMPhotos()}</div>
+      <div class="mphoto-add">
+        <input type="text" id="mphoto-url" placeholder="Paste photo URL...">
+        <button class="mphoto-add-btn" onclick="addMPhotoUrl()">Add URL</button>
+        <label class="mphoto-upload-btn">Upload <input type="file" accept="image/*" multiple onchange="addMPhotoUpload(this.files)"></label>
+      </div>
+    </div>`;
+  document.getElementById('edit-modal').classList.add('open');
+}
+
+/* ============================================================
+   EDIT MODAL - COMMUNITY
+   ============================================================ */
+function openCommEdit(id,e){
+  e.stopPropagation();
+  editMode='community'; editId=id;
+  document.getElementById('em-delete').style.display='none';
+  const c=C.find(x=>x.id===id), sb=SBC[id]||{};
+  mPhotos=[...commPhotos(c)];  // ALL photos, fully editable
+  document.getElementById('em-title').textContent=sb.name||c.name;
+  document.getElementById('em-body').innerHTML=`
+    <div class="ef"><label>Name</label><input id="ef-cname" value="${sb.name||c.name}"></div>
+    <div class="ef"><label>Description</label><textarea id="ef-cdesc">${sb.description||c.desc}</textarea></div>
+    <div class="ef"><label>Amenities (comma-separated)</label><input id="ef-camen" value="${(sb.amenities||c.amenities).join(', ')}"></div>
+    <div class="ef"><label>HOA</label><input id="ef-choa" value="${sb.hoa||c.hoa}"></div>
+    <div class="ef"><label>Photos &mdash; <span style="font-weight:400;font-style:italic;text-transform:none;letter-spacing:0;">first photo shows on card; all can be reordered or deleted</span></label>
+      <div class="mphoto-list" id="mphoto-list">${renderMPhotos()}</div>
+      <div class="mphoto-add">
+        <input type="text" id="mphoto-url" placeholder="Paste photo URL...">
+        <button class="mphoto-add-btn" onclick="addMPhotoUrl()">Add URL</button>
+        <label class="mphoto-upload-btn">Upload <input type="file" accept="image/*" multiple onchange="addMPhotoUpload(this.files)"></label>
+      </div>
+    </div>`;
+  document.getElementById('edit-modal').classList.add('open');
+}
+
+/* ============================================================
+   PHOTO MANAGER - SHARED
+   ============================================================ */
+function renderMPhotos() {
+  if (!mPhotos.length) return `<div style="font-size:11px;color:var(--brown-lt);padding:8px 0;font-style:italic;">No photos yet. Add one below.</div>`;
+  return mPhotos.map((p,i) => `
+    <div class="mphoto-item" id="mph-${i}">
+      <div class="mphoto-thumb">
+        <img src="${p}" onerror="this.style.opacity=0.3" alt="">
+        ${i===0 ? '<span class="mphoto-badge">cover</span>' : ''}
+      </div>
+      <div class="mphoto-controls">
+        ${i > 0 ? `<button class="mphoto-btn-sm" onclick="moveMPhoto(${i},-1)" title="Move earlier">&#8593;</button>` : `<span class="mphoto-btn-spacer"></span>`}
+        ${i < mPhotos.length-1 ? `<button class="mphoto-btn-sm" onclick="moveMPhoto(${i},1)" title="Move later">&#8595;</button>` : `<span class="mphoto-btn-spacer"></span>`}
+        <button class="mphoto-btn-sm rm" onclick="rmMPhoto(${i})" title="Delete photo">&#215;</button>
+      </div>
+    </div>`).join('');
+}
+
+function refreshMPhotos(){
+  document.getElementById('mphoto-list').innerHTML=renderMPhotos();
+}
+
+function moveMPhoto(i,dir){
+  const j=i+dir;
+  if(j<0||j>=mPhotos.length) return;
+  [mPhotos[i],mPhotos[j]]=[mPhotos[j],mPhotos[i]];
+  refreshMPhotos();
+}
+
+function rmMPhoto(i){ mPhotos.splice(i,1); refreshMPhotos(); }
+
+function addMPhotoUrl(){
+  const url=document.getElementById('mphoto-url').value.trim();
+  if(!url) return;
+  mPhotos.push(url);
+  document.getElementById('mphoto-url').value='';
+  refreshMPhotos();
+}
+
+function addMPhotoUpload(files){
+  if(!files||!files.length) return;
+  // compress and add each file; refresh once after the last one
+  const arr=Array.from(files);
+  let done=0;
+  arr.forEach(file=>{
+    const reader=new FileReader();
+    reader.onload=e=>{
+      const img=new Image();
+      img.onload=()=>{
+        const canvas=document.createElement('canvas');
+        const maxW=800, scale=Math.min(1,maxW/img.width);
+        canvas.width=Math.round(img.width*scale); canvas.height=Math.round(img.height*scale);
+        canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+        mPhotos.push(canvas.toDataURL('image/jpeg',0.80));
+        if(++done===arr.length) refreshMPhotos();
+      };
+      img.src=e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+/* ============================================================
+   EDIT MODAL - SAVE / CLOSE
+   ============================================================ */
+async function saveEdit(){
+  const btn=document.getElementById('em-save');
+  btn.disabled=true; btn.textContent='Saving...';
+  try{
+    if(editMode==='add'||editMode==='property'){
+      const commId=document.getElementById('ef-comm')?.value||null;
+      const fields={
+        id:editId,
+        address:document.getElementById('ef-addr')?.value.trim()||undefined,
+        community_id:commId,
+        price:document.getElementById('ef-price').value.trim(),
+        beds:parseFloat(document.getElementById('ef-beds').value)||null,
+        baths:parseFloat(document.getElementById('ef-baths').value)||null,
+        sqft:parseInt(document.getElementById('ef-sqft').value)||null,
+        dom:parseInt(document.getElementById('ef-dom').value)||null,
+        features:document.getElementById('ef-feats').value.split(',').map(f=>f.trim()).filter(Boolean),
+        zillow:document.getElementById('ef-zillow').value.trim(),
+        notes:document.getElementById('ef-notes').value,
+        photos:mPhotos,
+        ...(editMode==='add'?{user_added:true,lat:parseFloat(document.getElementById('ef-lat')?.value)||0,lng:parseFloat(document.getElementById('ef-lng')?.value)||0}:{}),
+      };
+      // strip undefined keys
+      Object.keys(fields).forEach(k=>fields[k]===undefined&&delete fields[k]);
+      SBP[editId]={...(SBP[editId]||{}),...fields};
+      await db.from('property_data').upsert(fields,{onConflict:'id'});
+    } else {
+      const fields={
+        id:editId,
+        name:document.getElementById('ef-cname').value.trim(),
+        description:document.getElementById('ef-cdesc').value.trim(),
+        amenities:document.getElementById('ef-camen').value.split(',').map(a=>a.trim()).filter(Boolean),
+        hoa:document.getElementById('ef-choa').value.trim(),
+        photos:mPhotos,
+      };
+      SBC[editId]={...(SBC[editId]||{}),...fields};
+      await db.from('community_data').upsert(fields,{onConflict:'id'});
+    }
+    // If adding a new property, drop a pin on both maps
+    if(editMode==='add'){
+      const prop=SBP[editId];
+      const comm=C.find(c=>c.id===prop.community_id)||C[0];
+      const lat=prop.lat||comm.center[0], lng=prop.lng||comm.center[1];
+      const h={...prop,cid:comm.id,cn:comm.name,clr:comm.color,dk:comm.colorDark,d:comm.day,cphoto:comm.photo,photo:'',features:prop.features||[],zillow:prop.zillow||'',rating:prop.rating||0,notes:prop.notes||''};
+      mk1[editId]=L.marker([lat,lng],{icon:mIcon(comm.color)}).addTo(m1).bindPopup(()=>makePopup(h,comm),{maxWidth:300,minWidth:276});
+      mk2[editId]=L.marker([lat,lng],{icon:mIcon(comm.color)}).addTo(m2).bindPopup(`<div style="font-family:sans-serif;padding:2px;"><b style="color:#4A2608;font-size:12px;">${prop.address||''}</b><br><span style="color:#7A4A20;font-size:11px;">${comm.name} &middot; ${prop.price||''}</span></div>`,{maxWidth:190});
+    }
+    closeEdit(); rClist(); rGrid(); flash();
+  } catch(err){
+    alert('Save failed: '+err.message);
+  } finally {
+    btn.disabled=false; btn.textContent='Save changes';
+  }
+}
+async function geocodeAddress(){
+  const addr = (document.getElementById('ef-addr')?.value||'').trim();
+  if(!addr){ alert('Enter an address first.'); return; }
+  const btn=document.getElementById('geocode-btn');
+  const st=document.getElementById('geocode-status');
+  btn.textContent='Locating...'; btn.disabled=true; st.textContent='';
+  try{
+    const q=encodeURIComponent(addr+', Nevada, USA');
+    const res=await fetch('https://nominatim.openstreetmap.org/search?q='+q+'&format=json&limit=1&countrycodes=us',
+      {headers:{'Accept-Language':'en','User-Agent':'PenningtonMigrationApp/1.0'}});
+    const data=await res.json();
+    if(!data.length){
+      st.textContent='Not found — try shorter address or enter manually.';
+      st.style.color='#c0392b';
+    } else {
+      document.getElementById('ef-lat').value=parseFloat(data[0].lat).toFixed(6);
+      document.getElementById('ef-lng').value=parseFloat(data[0].lon).toFixed(6);
+      const short=data[0].display_name.split(',').slice(0,2).join(',');
+      st.textContent='✓ '+short; st.style.color='#2a7a2a';
+    }
+  }catch(err){
+    st.textContent='Error — enter coordinates manually.'; st.style.color='#c0392b';
+  }finally{
+    btn.innerHTML='&#128205; Locate address'; btn.disabled=false;
+  }
+}
+
+function openAddProp(){
+  editMode='add'; editId='u_'+Date.now();
+  mPhotos=[];
+  document.getElementById('em-title').textContent='Add property';
+  document.getElementById('em-delete').style.display='none';
+  document.getElementById('em-body').innerHTML=`
+    <div class="ef"><label>Address</label><input id="ef-addr" placeholder="123 Main St, Las Vegas NV"></div>
+    <div class="ef"><label>Community</label><select id="ef-comm" style="border:1px solid var(--border-md);border-radius:6px;padding:7px 10px;font-size:12px;color:var(--brown);background:var(--sand-lt);font-family:inherit;outline:none;width:100%;">${C.map(x=>`<option value="${x.id}">${x.name} (${x.day==='W'?'Wed 4/15':'Thu 4/16'})</option>`).join('')}</select></div>
+    <div class="ef"><label>Price</label><input id="ef-price" placeholder="$600,000"></div>
+    <div class="ef-row">
+      <div class="ef"><label>Beds</label><input id="ef-beds" type="number" placeholder="4"></div>
+      <div class="ef"><label>Baths</label><input id="ef-baths" type="number" step="0.5" placeholder="3"></div>
+      <div class="ef"><label>Sqft</label><input id="ef-sqft" type="number" placeholder="2500"></div>
+      <div class="ef"><label>Days listed</label><input id="ef-dom" type="number" placeholder="14"></div>
+    </div>
+    <div class="ef"><label>Features (comma-separated)</label><input id="ef-feats" placeholder="3-car garage, Pool, Solar"></div>
+    <div class="ef"><label>Zillow URL</label><input id="ef-zillow" placeholder="https://zillow.com/..."></div>
+    <div class="ef"><label>Latitude &amp; Longitude <span style="font-weight:400;font-style:italic;text-transform:none;letter-spacing:0;">right-click in Google Maps → "What's here?"</span></label>
+      <div style="display:flex;gap:6px;align-items:center;margin-bottom:6px;">
+        <button type="button" onclick="geocodeAddress()" id="geocode-btn" style="font-size:11px;padding:6px 12px;border-radius:6px;border:1px solid rgba(42,143,165,0.4);background:transparent;cursor:pointer;font-weight:600;color:var(--turquoise);white-space:nowrap;font-family:inherit;flex-shrink:0;">&#128205; Locate address</button>
+        <span id="geocode-status" style="font-size:10px;color:var(--brown-lt);font-style:italic;"></span>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <input id="ef-lat" placeholder="Latitude (auto-filled)" style="flex:1;">
+        <input id="ef-lng" placeholder="Longitude (auto-filled)" style="flex:1;">
+      </div>
+    </div>
+    <div class="ef"><label>Notes</label><textarea id="ef-notes" placeholder="Tour notes..."></textarea></div>
+    <div class="ef"><label>Photos</label>
+      <div class="mphoto-list" id="mphoto-list">${renderMPhotos()}</div>
+      <div class="mphoto-add">
+        <input type="text" id="mphoto-url" placeholder="Paste photo URL...">
+        <button class="mphoto-add-btn" onclick="addMPhotoUrl()">Add URL</button>
+        <label class="mphoto-upload-btn">Upload <input type="file" accept="image/*" multiple onchange="addMPhotoUpload(this.files)"></label>
+      </div>
+    </div>`;
+  document.getElementById('em-save').textContent='Add property';
+  document.getElementById('edit-modal').classList.add('open');
+}
+
+async function deleteItem(){
+  if(!confirm('Delete this property? This cannot be undone.')) return;
+  const btn=document.getElementById('em-delete');
+  btn.textContent='Deleting...'; btn.disabled=true;
+  try{
+    if(SBP[editId]?.user_added){
+      await db.from('property_data').delete().eq('id',editId);
+      delete SBP[editId];
+    } else {
+      SBP[editId]={...(SBP[editId]||{id:editId}),deleted:true};
+      await db.from('property_data').upsert({id:editId,deleted:true},{onConflict:'id'});
+    }
+    // Remove pins from both maps
+    if(mk1[editId]){mk1[editId].remove();delete mk1[editId];}
+    if(mk2[editId]){mk2[editId].remove();delete mk2[editId];}
+    closeEdit(); rGrid(); flash();
+  }catch(err){
+    alert('Delete failed: '+err.message);
+    btn.textContent='Delete'; btn.disabled=false;
+  }
+}
+
+function closeEdit(){
+  document.getElementById('edit-modal').classList.remove('open');
+  document.getElementById('em-save').textContent='Save changes';
+  document.getElementById('em-save').disabled=false;
+  const del=document.getElementById('em-delete');
+  del.style.display='none'; del.textContent='Delete'; del.disabled=false;
+  editMode=null; editId=null; mPhotos=[];
+}
+function closeEditIfBack(e){ if(e.target===document.getElementById('edit-modal')) closeEdit(); }
+
+/* ============================================================
+   MAP HELPERS
+   ============================================================ */
+function mIcon(clr){
+  const s=`<svg xmlns="http://www.w3.org/2000/svg" width="22" height="28" viewBox="0 0 22 28"><path d="M11 0C4.9 0 0 4.9 0 11c0 8.3 11 17 11 17S22 19.3 22 11C22 4.9 17.1 0 11 0z" fill="${clr}" stroke="rgba(255,255,255,0.9)" stroke-width="1.5"/><circle cx="11" cy="11" r="4.5" fill="rgba(255,255,255,0.45)"/></svg>`;
+  return L.divIcon({html:s,iconSize:[22,28],iconAnchor:[11,28],popupAnchor:[0,-30],className:''});
+}
+function addLeg(map){
+  const leg=L.control({position:'bottomleft'});
+  leg.onAdd=()=>{
+    const d=L.DomUtil.create('div');
+    d.style.cssText='background:rgba(255,255,255,0.97);border:1px solid rgba(184,106,42,0.28);border-radius:9px;padding:8px 13px;font-size:11px;font-family:sans-serif;line-height:2;pointer-events:none;box-shadow:0 3px 14px rgba(184,106,42,0.14);';
+    d.innerHTML=C.map(c=>`<div style="display:flex;align-items:center;gap:7px;color:#4A2608;font-weight:500;"><div style="width:9px;height:9px;border-radius:50%;background:${c.color};flex-shrink:0;"></div>${c.name}</div>`).join('');
+    return d;
+  };
+  leg.addTo(map);
+}
+function makePopup(h,comm){
+  const photo=currentPhoto(h);
+  return `<div style="font-family:-apple-system,sans-serif;width:274px;">
+    <div style="height:140px;background:url('${photo}') center/cover;background-color:#D8CAAF;position:relative;">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(74,38,8,0.65) 0%,transparent 55%);"></div>
+      <div style="position:absolute;bottom:9px;left:12px;right:12px;display:flex;justify-content:space-between;align-items:flex-end;">
+        <span style="font-size:17px;font-weight:700;color:#fff;text-shadow:0 1px 5px rgba(0,0,0,0.5);">${h.price}</span>
+        <span style="font-size:10px;background:rgba(255,255,255,0.2);color:#fff;padding:2px 9px;border-radius:10px;">${h.dom} days listed</span>
+      </div>
+    </div>
+    <div style="padding:12px 14px 14px;background:#fff;">
+      <div style="font-size:13px;font-weight:700;color:#4A2608;margin-bottom:3px;">${h.address}</div>
+      <div style="font-size:11px;color:#7A4A20;margin-bottom:9px;display:flex;align-items:center;gap:5px;">
+        <span style="width:7px;height:7px;border-radius:50%;background:${comm.color};display:inline-block;"></span>
+        ${comm.name} &nbsp;&middot;&nbsp; ${h.d==='W'?'Wednesday 4/15':'Thursday 4/16'}
+      </div>
+      <div style="display:flex;background:#EFE8DB;border-radius:7px;overflow:hidden;margin-bottom:9px;border:1px solid rgba(184,106,42,0.2);">
+        <div style="flex:1;padding:7px 0;text-align:center;border-right:1px solid rgba(184,106,42,0.18);"><div style="font-size:16px;font-weight:700;color:#4A2608;">${h.beds}</div><div style="font-size:9px;color:#7A4A20;text-transform:uppercase;letter-spacing:0.06em;">Beds</div></div>
+        <div style="flex:1;padding:7px 0;text-align:center;border-right:1px solid rgba(184,106,42,0.18);"><div style="font-size:16px;font-weight:700;color:#4A2608;">${h.baths}</div><div style="font-size:9px;color:#7A4A20;text-transform:uppercase;letter-spacing:0.06em;">Baths</div></div>
+        <div style="flex:1;padding:7px 0;text-align:center;"><div style="font-size:16px;font-weight:700;color:#4A2608;">${(h.sqft/1000).toFixed(1)}k</div><div style="font-size:9px;color:#7A4A20;text-transform:uppercase;letter-spacing:0.06em;">Sqft</div></div>
+      </div>
+      <div style="margin-bottom:10px;line-height:2.2;">${h.features.map(f=>`<span style="display:inline-block;font-size:10px;background:#EFE8DB;color:#4A2608;padding:1px 7px;border-radius:10px;margin:1px 2px 1px 0;border:1px solid rgba(184,106,42,0.2);font-weight:500;">${f}</span>`).join('')}</div>
+      <a href="${h.zillow}" target="_blank" style="display:block;text-align:center;font-size:12px;color:#2A8FA5;text-decoration:none;border:1px solid rgba(42,143,165,0.4);border-radius:7px;padding:7px;background:rgba(42,143,165,0.05);font-weight:600;">View on Zillow &rarr;</a>
+    </div>
+  </div>`;
+}
+
+/* ============================================================
+   LIGHTBOX
+   ============================================================ */
+let lbPhotos=[], lbIdx=0;
+function openLightbox(id, idx, e){
+  e.stopPropagation();
+  const h=flat().find(x=>x.id===id); if(!h) return;
+  lbPhotos=propPhotos(h); if(!lbPhotos.length) return;
+  lbIdx=idx||0;
+  lbRender();
+  document.getElementById('lightbox').classList.add('open');
+}
+function lbRender(){
+  const img=document.getElementById('lb-img');
+  const ctr=document.getElementById('lb-counter');
+  img.src=lbPhotos[lbIdx]||'';
+  ctr.textContent=lbPhotos.length>1?(lbIdx+1)+' / '+lbPhotos.length:'';
+  document.querySelector('.lightbox-prev').style.display=lbPhotos.length>1?'':'none';
+  document.querySelector('.lightbox-nav-next').style.display=lbPhotos.length>1?'':'none';
+}
+function lbNav(dir,e){ e.stopPropagation(); lbIdx=(lbIdx+dir+lbPhotos.length)%lbPhotos.length; lbRender(); }
+function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); lbPhotos=[]; }
+function lbClose(e){ if(e.target===document.getElementById('lightbox')) closeLightbox(); }
+
+/* ============================================================
+   TAB / EXPORT
+   ============================================================ */
+function gTab(n){
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',i===n));
+  document.querySelectorAll('.page').forEach((p,i)=>p.classList.toggle('active',i===n));
+  if(n===0&&m1) setTimeout(()=>m1.invalidateSize(),60);
+  if(n===1&&m2) setTimeout(()=>m2.invalidateSize(),60);
+}
+function exportNotes(){
+  const homes=flat();
+  let txt='PENNINGTON HOUSE TOUR NOTES\nApril 15-16, 2026 | Las Vegas & Henderson, NV\n';
+  txt+='Generated: '+new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})+'\n';
+  txt+='============================================\n\n';
+  const reviewed=homes.filter(h=>h.rating>0||h.notes);
+  const unreviewed=homes.filter(h=>!h.rating&&!h.notes);
+  if(reviewed.length){
+    txt+='REVIEWED\n\n';
+    reviewed.forEach(h=>{
+      txt+=h.cn+' | '+h.address+'\n';
+      txt+=h.price+' | '+h.beds+'bd/'+h.baths+'ba | '+h.sqft.toLocaleString()+' sqft | '+h.dom+' days\n';
+      txt+='Rating: '+'\u2605'.repeat(h.rating)+'\u2606'.repeat(5-h.rating)+'\n';
+      txt+='Notes: '+(h.notes||'(none)')+'\n';
+      txt+=h.zillow+'\n\n';
+    });
+  }
+  if(unreviewed.length){
+    txt+='\nNOT YET REVIEWED\n';
+    unreviewed.forEach(h=>{txt+=h.cn+' | '+h.address+' | '+h.price+'\n';});
+  }
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([txt],{type:'text/plain'}));
+  a.download='pennington-tour-notes.txt'; a.click();
+}
+
+/* ============================================================
+   ZILLOW IMPORT
+   ============================================================ */
+let impB64=null;
+function openImport()  {document.getElementById('import-back').classList.add('open');}
+function closeImport() {document.getElementById('import-back').classList.remove('open');}
+function closeImportIfBack(e){if(e.target===document.getElementById('import-back'))closeImport();}
+function dzOver(e){e.preventDefault();document.getElementById('drop-zone').classList.add('drag-over');}
+function dzLeave(){document.getElementById('drop-zone').classList.remove('drag-over');}
+function dzDrop(e){e.preventDefault();dzLeave();const f=e.dataTransfer.files[0];if(f&&f.type.startsWith('image/'))dzFile(f);}
+function dzFile(file){
+  if(!file)return;
+  const r=new FileReader();
+  r.onload=e=>{
+    impB64=e.target.result.split(',')[1];
+    const p=document.getElementById('dz-preview');
+    p.src=e.target.result; p.style.display='block';
+    document.getElementById('dz-icon').style.display='none';
+    document.getElementById('dz-hint').style.display='none';
+    document.getElementById('imp-extract').disabled=false;
+    document.getElementById('imp-status').textContent='Ready. Click Extract.';
+  };
+  r.readAsDataURL(file);
+}
+async function runExtract(){
+  const btn=document.getElementById('imp-extract'),status=document.getElementById('imp-status');
+  btn.disabled=true; btn.textContent='Extracting...'; status.textContent='Calling Claude vision API...';
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:[
+        {type:'image',source:{type:'base64',media_type:'image/jpeg',data:impB64}},
+        {type:'text',text:'Extract from this Zillow screenshot: address, price, beds, baths, sqft, days on market. Return ONLY valid JSON with keys: address, price, beds, baths, sqft, dom. No markdown.'}
+      ]}]})
+    });
+    const data=await res.json();
+    const parsed=JSON.parse(data.content.map(b=>b.text||'').join('').replace(/```json|```/g,'').trim());
+    document.getElementById('if-addr').value=parsed.address||'';
+    document.getElementById('if-price').value=parsed.price||'';
+    document.getElementById('if-beds').value=parsed.beds||'';
+    document.getElementById('if-baths').value=parsed.baths||'';
+    document.getElementById('if-sqft').value=parsed.sqft||'';
+    document.getElementById('if-dom').value=parsed.dom||'';
+    status.textContent='Done! Edit fields then copy.'; buildSnippet();
+  }catch(err){
+    status.textContent='Error: '+err.message; status.className='imp-status err';
+  }finally{btn.disabled=false;btn.textContent='Extract listing details';}
+}
+function buildSnippet(){
+  const s={id:'hXX',address:document.getElementById('if-addr').value,lat:0,lng:0,zillow:'',
+    price:document.getElementById('if-price').value,
+    beds:Number(document.getElementById('if-beds').value)||0,
+    baths:Number(document.getElementById('if-baths').value)||0,
+    sqft:Number(document.getElementById('if-sqft').value)||0,
+    dom:Number(document.getElementById('if-dom').value)||0,
+    features:[],photo:'',photo2:''};
+  const out=document.getElementById('imp-output');
+  out.textContent=JSON.stringify(s,null,2); out.style.display='block';
+}
+function copySnippet(){
+  buildSnippet();
+  navigator.clipboard.writeText(document.getElementById('imp-output').textContent).then(()=>{
+    const b=document.getElementById('imp-copy-btn');
+    b.textContent='Copied!'; setTimeout(()=>b.textContent='Copy JSON snippet',2000);
+  });
+}
+['if-addr','if-price','if-beds','if-baths','if-sqft','if-dom'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) el.addEventListener('input',()=>{if(document.getElementById('imp-output').style.display==='block')buildSnippet();});
+});
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeEdit();closeImport();closeLightbox();}});
+document.addEventListener('paste',e=>{
+  if(!document.getElementById('import-back').classList.contains('open'))return;
+  const item=Array.from(e.clipboardData.items).find(i=>i.type.startsWith('image/'));
+  if(item)dzFile(item.getAsFile());
+});
+</script>
+</body>
+</html>
