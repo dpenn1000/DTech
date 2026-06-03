@@ -1,0 +1,88 @@
+/* trails.css — components only used on the Trails page.
+   Loads after site.css and reuses its tokens. Dark theme to match the site. */
+
+.addr {
+  display: inline-flex; align-items: center; gap: .6rem; margin-top: 1.4rem;
+  font-family: var(--f-mono); font-size: .78rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--sand-dim); border: 1px solid var(--line-2); border-radius: var(--r-pill); padding: .55rem 1.1rem;
+}
+
+/* doorstep + map frames */
+.door-split { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; margin-top: 2rem; }
+.frame { border-radius: var(--r); overflow: hidden; border: 1px solid var(--line); background: #000; box-shadow: 0 24px 50px -28px rgba(0,0,0,.7); }
+.frame img { width: 100%; height: auto; display: block; object-fit: contain; }   /* maps: show the whole image, don't crop */
+.frame + .frame { margin-top: 1.4rem; }
+.cap { font-size: .84rem; color: var(--sand-mut); margin-top: .7rem; line-height: 1.45; }
+.cap b { color: var(--sand); }
+.pullrow { display: flex; gap: .8rem; flex-wrap: wrap; margin-top: 1.6rem; }
+
+/* legend */
+.legend { display: flex; gap: 1.1rem; flex-wrap: wrap; margin-top: 1.1rem; font-size: .85rem; color: var(--sand-dim); }
+.legend span { display: inline-flex; align-items: center; gap: .5rem; }
+.legend .dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid rgba(255,255,255,.85); }
+
+/* run / hike tiers */
+.tier { display: grid; grid-template-columns: 92px 1fr; gap: 1.6rem; align-items: start; padding: 1.6rem 0; border-top: 1px solid var(--line); }
+.tier:first-child { border-top: none; }
+.tnum { font-family: var(--f-disp); font-size: 3rem; line-height: .85; color: var(--sun-2); }
+.tnum small { display: block; font-family: var(--f-mono); font-size: .6rem; letter-spacing: .2em; text-transform: uppercase; color: var(--turq); margin-top: .35rem; }
+.tier h3 { font-size: 1.4rem; }
+.tier .meta { display: flex; gap: 1rem; flex-wrap: wrap; margin: .5rem 0; font-size: .84rem; color: var(--sand-mut); }
+.tier .meta b { color: var(--sand); }
+.tier p { max-width: 62ch; color: #e9c9b6; font-size: .98rem; line-height: 1.5; }
+.stars { color: var(--sun-2); letter-spacing: 1px; }
+
+/* bike cards reuse .card from site.css; these are the extra bits */
+.card .ride { font-family: var(--f-mono); font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; color: var(--turq); margin-bottom: .2rem; }
+.card .d { font-size: .82rem; color: var(--sand-mut); margin-top: .6rem; font-style: italic; }
+
+/* featured heatmap — the live GPS screenshot */
+.heat-feature { display: grid; grid-template-columns: minmax(0, 340px) 1fr; gap: 2rem; align-items: center;
+  margin: 1.5rem 0 2.5rem; background: var(--night-2); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 1.4rem; }
+.heat-feature .shot { border-radius: var(--r); overflow: hidden; border: 1px solid var(--line); background: #000; }
+.heat-feature .shot img { width: 100%; height: auto; display: block; }
+.heat-feature h3 { font-size: 1.5rem; margin-bottom: .6rem; }
+.heat-feature p { color: #e9c9b6; font-size: .96rem; line-height: 1.5; margin-bottom: .6rem; max-width: 58ch; }
+.heat-feature p b { color: var(--sand); }
+.scale { display: flex; align-items: center; gap: .7rem; margin-top: 1rem; font-family: var(--f-mono); font-size: .64rem; letter-spacing: .12em; text-transform: uppercase; color: var(--sand-mut); }
+.scale .bar { flex: 1; height: 8px; border-radius: 4px; background: linear-gradient(90deg, #3a2a4a, #7a3bff 55%, #ff2e7e); }
+
+/* heatmap detail grid */
+.hmgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.4rem; margin-top: 1.4rem; }
+.hm { border-radius: var(--r); overflow: hidden; border: 1px solid var(--line); background: #000; display: flex; flex-direction: column; }
+.hm img { width: 100%; height: auto; display: block; }
+.hm .lbl { padding: .9rem 1rem; background: rgba(255,243,230,.04); }
+.hm .lbl b { display: block; color: var(--sand); font-weight: 800; margin-bottom: .2rem; }
+.hm .lbl span { font-size: .85rem; color: var(--sand-mut); }
+.note { margin-top: 1.4rem; font-size: .9rem; color: var(--sand-mut); max-width: 66ch; border-left: 2px solid var(--sun); padding-left: 1rem; font-style: italic; }
+
+/* community map pair */
+.maps2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; margin-top: 1.6rem; }
+
+/* town errands */
+.errands { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-top: 1.4rem; }
+.err { display: flex; gap: 1rem; align-items: baseline; padding: 1.1rem 1.2rem; background: var(--night-2); border-radius: var(--r); border: 1px solid var(--line); }
+.err .mi { font-family: var(--f-disp); font-size: 1.6rem; color: var(--sun-2); white-space: nowrap; }
+.err .mi small { font-size: .7rem; }
+.err h3 { font-size: 1.1rem; }
+.err p { font-size: .88rem; color: var(--sand-mut); margin-top: .2rem; }
+
+/* heat reality */
+.wx { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: 1.4rem; }
+.wx .day { background: var(--night-2); border: 1px solid var(--line); border-radius: var(--r-sm); padding: .7rem .9rem; text-align: center; min-width: 74px; }
+.wx .day b { display: block; font-family: var(--f-mono); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--turq); }
+.wx .day .hi { font-family: var(--f-disp); font-size: 1.5rem; margin-top: .25rem; color: var(--sun-2); }
+.wx .day .lo { font-size: .78rem; color: var(--sand-mut); }
+.seasonbar { display: flex; margin-top: 1.4rem; border-radius: var(--r-sm); overflow: hidden; border: 1px solid var(--line); }
+.seasonbar div { flex: 1; padding: .6rem .3rem; text-align: center; font-size: .72rem; font-weight: 700; font-family: var(--f-mono); }
+.s-prime { background: #2e7d32; color: #fff; }
+.s-ok { background: var(--sun-2); color: #2a1408; }
+.s-hard { background: #5e2f1c; color: #f0d4bf; }
+
+.quote { font-family: var(--f-body); font-style: italic; font-size: clamp(1.3rem, 3vw, 1.8rem); color: var(--sand); max-width: 26ch; margin: 0 auto; line-height: 1.3; }
+
+@media (max-width: 760px) {
+  .door-split, .maps2, .heat-feature { grid-template-columns: 1fr; }
+  .tier { grid-template-columns: 60px 1fr; gap: 1rem; }
+  .tnum { font-size: 2.4rem; }
+}
