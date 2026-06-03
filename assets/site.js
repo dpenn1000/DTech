@@ -3,9 +3,9 @@
    ------------------------------------------------------------------ */
 
 /* 1. COUNTDOWN ----------------------------------------------------
-   Move day. Edit this one line if the date changes.
-   Format: YYYY-MM-DDTHH:MM:SS in Arizona time (MST, no daylight saving). */
-const MOVE_DAY = new Date('2026-07-04T09:00:00-07:00');
+   Departure: evening of July 2, 2026, pulling out of the driveway at
+   26 Hampton Dr, Manchester CT (Eastern time). Edit this one line to change it. */
+const MOVE_DAY = new Date('2026-07-02T18:00:00-04:00');
 
 function tickCountdown() {
   const el = document.getElementById('countdown');
