@@ -1,7 +1,7 @@
 /* sw.js — The Great Pennington Migration (Arizona)
    Network-first for pages, cache-first for assets/fonts. Installable + offline. */
 
-const CACHE = 'pennington-az-v7';
+const CACHE = 'pennington-az-v8';
 
 const PRECACHE = [
   './',
@@ -81,7 +81,7 @@ async function cacheFirst(req) {
 async function networkFirst(req) {
   const c = await caches.open(CACHE);
   try {
-    const res = await fetch(req);
+    const res = await fetch(req, { cache: 'reload' });   // bypass HTTP cache, always pull fresh HTML
     if (res.ok) c.put(req, res.clone());
     return res;
   } catch {
