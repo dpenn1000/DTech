@@ -1,19 +1,20 @@
 /* sw.js — The Great Pennington Migration (Arizona)
    Network-first for pages, cache-first for assets/fonts. Installable + offline. */
 
-const CACHE = 'pennington-az-v4';
+const CACHE = 'pennington-az-v5';
 
 const PRECACHE = [
   './',
   'index.html',
+  'schedule.html',
   'music.html',
   'food.html',
   'recreation.html',
   'motorsports.html',
   'trails.html',
-  'assets/site.css?v=3',
-  'assets/trails.css?v=3',
-  'assets/site.js?v=3',
+  'assets/site.css?v=4',
+  'assets/trails.css?v=4',
+  'assets/site.js?v=4',
   'manifest.json',
   'icon-192.png',
   'icon-512.png',

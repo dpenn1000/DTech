@@ -268,6 +268,21 @@ section { position: relative; z-index: 2; padding: var(--pad-sec); max-width: va
 .c-market { background: linear-gradient(150deg, #2fb9ad, #3f9d52 60%, #1f1419); }
 .c-hall { background: linear-gradient(150deg, #7a5cff, #ff944a 70%, #1f1419); }
 
+/* schedule list */
+.sched { display: flex; flex-direction: column; gap: .8rem; margin-top: 1.4rem; }
+.sched-item {
+  display: grid; grid-template-columns: 96px 1fr; gap: 1.2rem; align-items: start;
+  padding: 1.1rem 1.2rem; background: var(--night-2); border: 1px solid var(--line); border-radius: var(--r);
+}
+.sched-date { text-align: center; font-family: var(--f-mono); }
+.sched-date .d-day { display: block; font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: var(--turq); }
+.sched-date .d-num { display: block; font-family: var(--f-disp); font-size: 1.25rem; color: var(--sun-2); line-height: 1.1; margin-top: .2rem; }
+.sched-body h3 { font-size: 1.15rem; }
+.sched-body p { color: #e9c9b6; font-size: .92rem; line-height: 1.45; margin-top: .25rem; }
+.sched-body .meta { font-family: var(--f-mono); font-size: .72rem; color: var(--sand-mut); margin-top: .35rem; }
+.sched-body .go { margin-top: .55rem; display: inline-block; }
+@media (max-width: 600px) { .sched-item { grid-template-columns: 70px 1fr; gap: .9rem; padding: 1rem; } }
+
 /* footer */
 .site-foot { position: relative; z-index: 2; text-align: center; padding: 3.5rem 1.5rem 4rem; border-top: 1px solid var(--line); }
 .site-foot .big { font-family: var(--f-disp); text-transform: uppercase; font-size: clamp(2rem, 7vw, 4.5rem); line-height: .9;
