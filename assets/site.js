@@ -48,6 +48,21 @@ window.addEventListener('load', () => {
   });
 })();
 
+/* 3b. HAMBURGER DRAWER (mobile nav) ------------------------------- */
+(function () {
+  const nav = document.querySelector('.nav');
+  const btn = document.querySelector('.nav-toggle');
+  if (!nav || !btn) return;
+  const toggle = (open) => {
+    const isOpen = open ?? !nav.classList.contains('open');
+    nav.classList.toggle('open', isOpen);
+    btn.setAttribute('aria-expanded', isOpen);
+    btn.innerHTML = isOpen ? '&#10005;' : '&#9776;';   // × when open, ☰ when closed
+  };
+  btn.addEventListener('click', () => toggle());
+  nav.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => toggle(false)));
+})();
+
 /* 4. SERVICE WORKER (installable + offline) ----------------------- */
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
