@@ -166,12 +166,28 @@ section { position: relative; z-index: 2; padding: var(--pad-sec); max-width: va
   animation: bob 1.8s ease-in-out infinite;
 }
 
-/* banner hero (home) — a self-contained graphic shown in full, with the live
-   countdown in a band beneath it. The image carries the title/date/tagline. */
-.banner-hero { display: block; }
-.banner-hero > img { width: 100%; height: auto; display: block; }
-.banner-hero-cd { text-align: center; padding: clamp(1.4rem, 4vw, 2.2rem) 1rem; background: var(--night); }
+/* banner hero (home). Shows the full banner graphic if assets/img/hero-banner.jpg
+   exists; otherwise the <img> onerror flips on .fallback and we show a clean
+   titled hero over the lake photo instead. Either way looks intentional. */
+.hero-banner { display: block; position: relative; text-align: center; background: var(--night); }
+.hero-banner .hb-img { display: block; margin: 0 auto; width: auto; height: auto; max-width: 100%; max-height: 86vh; }
+.hb-fallback-text { display: none; }
+.banner-hero-cd { position: relative; z-index: 1; text-align: center; padding: clamp(1.4rem, 4vw, 2.2rem) 1rem; background: var(--night); }
 .banner-hero-cd .kicker { display: block; margin-bottom: .9rem; }
+
+/* fallback (no banner file yet): lake photo + title */
+.hero-banner.fallback { min-height: 64vh; display: flex; flex-direction: column; justify-content: center;
+  background: var(--night) url('img/hero-home.jpg') center/cover no-repeat; overflow: hidden; }
+.hero-banner.fallback::before { content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(31,20,25,.4), rgba(31,20,25,.8)); }
+.hero-banner.fallback .hb-fallback-text { display: block; position: relative; z-index: 1; padding: 2rem 1rem 0; }
+.hero-banner.fallback .hb-fallback-text .kicker { display: block; margin-bottom: .7rem; }
+.hero-banner.fallback .hb-fallback-text h1 { font-family: var(--f-disp); text-transform: uppercase; line-height: .9;
+  font-size: clamp(2.4rem, 8vw, 5rem); background: var(--grad-sunset); -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; filter: drop-shadow(0 4px 16px rgba(0,0,0,.45)); }
+.hero-banner.fallback .hb-fallback-text .line2 { display: block; color: var(--sand); -webkit-text-fill-color: initial;
+  background: none; font-size: clamp(1.1rem, 3.5vw, 1.8rem); margin-top: .6rem; }
+.hero-banner.fallback .banner-hero-cd { background: transparent; }
 
 /* ---------- 6. COMPONENTS ---------- */
 
