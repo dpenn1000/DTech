@@ -166,6 +166,13 @@ section { position: relative; z-index: 2; padding: var(--pad-sec); max-width: va
   animation: bob 1.8s ease-in-out infinite;
 }
 
+/* banner hero (home) — a self-contained graphic shown in full, with the live
+   countdown in a band beneath it. The image carries the title/date/tagline. */
+.banner-hero { display: block; }
+.banner-hero > img { width: 100%; height: auto; display: block; }
+.banner-hero-cd { text-align: center; padding: clamp(1.4rem, 4vw, 2.2rem) 1rem; background: var(--night); }
+.banner-hero-cd .kicker { display: block; margin-bottom: .9rem; }
+
 /* ---------- 6. COMPONENTS ---------- */
 
 /* chips (in-page jump links) */
