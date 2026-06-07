@@ -62,6 +62,33 @@ window.addEventListener('load', () => {
   nav.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => toggle(false)));
 })();
 
+/* 3c. CARD IMAGE GALLERIES (swipe + arrows + dots) ---------------- */
+document.querySelectorAll('.gallery').forEach(g => {
+  const slides = g.querySelector('.slides');
+  if (!slides) return;
+  const imgs = slides.querySelectorAll('img');
+  if (imgs.length < 2) return;
+  const dots = g.querySelector('.gdots');
+  imgs.forEach((_, i) => {
+    const b = document.createElement('b');
+    if (i === 0) b.className = 'on';
+    b.style.pointerEvents = 'auto';
+    b.addEventListener('click', () => slides.scrollTo({ left: slides.clientWidth * i, behavior: 'smooth' }));
+    dots && dots.appendChild(b);
+  });
+  const prev = g.querySelector('.gprev'), next = g.querySelector('.gnext');
+  prev && prev.addEventListener('click', () => slides.scrollBy({ left: -slides.clientWidth, behavior: 'smooth' }));
+  next && next.addEventListener('click', () => slides.scrollBy({ left: slides.clientWidth, behavior: 'smooth' }));
+  let t;
+  slides.addEventListener('scroll', () => {
+    clearTimeout(t);
+    t = setTimeout(() => {
+      const idx = Math.round(slides.scrollLeft / slides.clientWidth);
+      dots && dots.querySelectorAll('b').forEach((b, i) => b.classList.toggle('on', i === idx));
+    }, 80);
+  }, { passive: true });
+});
+
 /* 4. SERVICE WORKER (installable + offline) ----------------------- */
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
