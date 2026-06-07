@@ -215,7 +215,31 @@ section { position: relative; z-index: 2; padding: var(--pad-sec); max-width: va
 .card-img { position: relative; aspect-ratio: 16/10; overflow: hidden; }
 .card-img img { transition: .6s ease; }
 .card:hover .card-img img { transform: scale(1.06); }
-.card-img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(35,9,15,.85)); }
+.card-img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(35,9,15,.85)); pointer-events: none; }
+
+/* swipeable image gallery inside a card image */
+.card-img.gallery::after { display: none; }
+.card:hover .card-img.gallery img { transform: none; }
+.gallery .slides {
+  position: absolute; inset: 0; display: flex; overflow-x: auto;
+  scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+}
+.gallery .slides::-webkit-scrollbar { display: none; }
+.gallery .slides img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; scroll-snap-align: center; }
+.gallery .gnav {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 3;
+  width: 30px; height: 30px; border-radius: 50%; border: 0; cursor: pointer;
+  background: rgba(20,12,16,.5); color: #fff; font-size: 1.15rem; line-height: 1;
+  display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .2s;
+}
+.card:hover .gallery .gnav { opacity: 1; }
+.gallery .gnav:hover { background: rgba(20,12,16,.8); }
+.gallery .gprev { left: 8px; }
+.gallery .gnext { right: 8px; }
+.gallery .gdots { position: absolute; bottom: 8px; left: 0; right: 0; z-index: 3; display: flex; gap: 5px; justify-content: center; pointer-events: none; }
+.gallery .gdots b { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,.55); transition: .2s; }
+.gallery .gdots b.on { background: #fff; transform: scale(1.25); }
+.tag { pointer-events: none; }
 .card-body { display: flex; flex-direction: column; gap: .5rem; flex: 1; padding: var(--pad-card); }
 .card-body p { font-size: var(--t-sm); line-height: 1.45; color: #e9c9b6; }
 .card-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: .5rem; padding-top: .5rem; }
