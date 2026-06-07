@@ -289,6 +289,11 @@ section { position: relative; z-index: 2; padding: var(--pad-sec); max-width: va
 .cd-num { font-family: var(--f-disp); font-size: clamp(1.8rem, 6vw, 2.8rem); line-height: 1; color: var(--sun-2); }
 .cd-lbl { font-family: var(--f-mono); font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; color: var(--sand-mut); margin-top: .35rem; }
 .cd-done { font-family: var(--f-disp); text-transform: uppercase; font-size: clamp(1.6rem,5vw,2.6rem); color: var(--sun-2); }
+/* secondary countdown (Lola & Grandpa) — a touch smaller, set apart */
+.banner-hero-cd .cd-label2 { margin-top: 1.6rem; color: var(--turq); }
+.countdown.cd-sm { gap: .5rem; margin-top: 1.2rem; }
+.countdown.cd-sm .cd-unit { min-width: 60px; padding: .55rem .6rem; }
+.countdown.cd-sm .cd-num { font-size: clamp(1.3rem, 5vw, 2rem); }
 
 /* hub cards (home page section links — no image needed, gradient-led) */
 .hub-grid { display: grid; gap: var(--gap); grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
