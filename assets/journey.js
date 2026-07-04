@@ -18,15 +18,25 @@ var MIGRATION = {
   tracker: { url: "https://qjcozskyopetvigjhlmh.supabase.co/functions/v1/migration-ping", pollSeconds: 60 },
   current: { lat: 39.768, lng: -86.158, label: "We are here — I-70 West, Day 3" },
   days: [
-    { date: "Day 1 • Thu Jul 2", title: "Manchester, CT → Moosic, PA", miles: "190 mi", drive: "3h 45m", color: "#ffa24a",
-      route: "kj~}FjjsyLp]fhCxj@iJ{E~vD{u@tyAb`AbcI_o@zkGz_AbwBv~@b`@rGjnDfmAjn@fw@lkBx`@txEb`InzDxHtfCdmEhwCvyCv_EnfBdXtiA_[xbCtbBhxBv|Dhd@`nBim@t`Cbc@l_CkQ|bBo`AliAtTl{E`aAtnBr{Atg@jaH|oVp~Cr|ExhBmBprBbuBkK`nC_kAjaD|_@lxKb_AtxDqZv{ApwBzpHlkApLxRlk@sx@zxG|y@rrHsk@|zBehFpcEsyIr_DcxJfoJq^psClpB|dLiLhsDpp@tsDpL|}Fwm@|iG~iA`_DiRnnFnn@n|Fmx@lwHp_AhmEe]rjJp|BpmLfjD~xIx_@nyCd{F|hJvlAhqEnm@laF}PteEd_Ap|GdlCnuKlDfjD~xBzlFab@|fDluBf{Lka@vcBnqAftJkjBl|Q|U|fHihAv`ItFf|GaeAnaGjs@|tFaGbrF`aCdrPcVfwDm|@l~Bt\\hqGo~Bv|H{~BrkBsmBvoGnw@thE~mCbwEetCh~@kiC~mCxcHbkKtKdgBdp@Ef{@{pA",
+    { date: "Day 0 • Mon Jun 29", title: "Manchester, CT → Jersey Shore", miles: "180 mi", drive: "4h with the truck", color: "#f0c7a8",
+      route: "kj~}FjjsyLp]fhCxj@iJ{E~vDqu@puAlPl_Ch`CrgI``Bng@biAwpAlgCqm@b{Bjy@heTxoLn{FncHx`Bzj@p_F|{GjeNjeGdcFxsIjvAxkGljEnrF|y@d}Dl_Ctt@vyFbpFhjAziMnaBvnDn_Dd`B~}CaGld@nkGv~A`rAbs@tuEb}BxbF|Cf~In_Bz_ItfBdqDbtAjcAhj@|zEpbA`hAvt@r|CnkAnnIzpBncG`xDjdEzuArzI~fLnkLftBzfAdx@`aExgGyt@rc@dq@kyC|pY_bB~z@y\\bgAjeAvcCzmEjoAdfClsFbhDdiEzsCz~BvcGh}Bvq@rsAtcIpmFv~@f{A~oLbmGhqCprCxaBtdFbu@mr@zsGf\\txAok@buDgbEb|CajJl|DgvDp_A{lD~|A}lAtnCc}EpzH}aAvuB{hAr|BnXvyC|`BhfLdL",
       highlights: [
-        { name: "Hudson River crossing", note: "Over the Newburgh-Beacon Bridge, wide river views both sides.", g: "Newburgh-Beacon Bridge NY" },
-        { name: "I-84 into the Poconos", note: "Cross the Delaware into Pennsylvania, then ridge forest the rest of the way to Scranton.", g: "Delaware Water Gap" }
+        { name: "George Washington Bridge", note: "Across the Hudson at dawn, before the city woke up.", g: "George Washington Bridge" },
+        { name: "The Shore send-off", note: "A few days with family at the Jersey Shore before the run west.", g: "Wall Township NJ" }
       ],
       stops: [
-        { name: "26 Hampton Dr • Manchester, CT", note: "6:00 PM. Keys handed over, truck rolling. Goodbye, Connecticut.", lat: 41.7759, lng: -72.5215 },
-        { name: "Moosic, PA", note: "SpringHill Suites, Montage Mountain. I-84 through New York, 380 south.", lat: 41.3541, lng: -75.6704 }
+        { name: "26 Hampton Dr • Manchester, CT", note: "4:36 AM start. Keys handed over, truck rolling. Goodbye, Connecticut.", lat: 41.7759, lng: -72.5215 },
+        { name: "Jersey Shore • Monmouth County", note: "Family send-off at the Shore, June 29 to July 2.", lat: 40.1557, lng: -74.1007 }
+      ] },
+    { date: "Day 1 • Thu Jul 2", title: "Jersey Shore → Moosic, PA", miles: "150 mi", drive: "3h 30m", color: "#ffa24a",
+      route: "o}atFnxgcMclKvhDm|@htBmaHlaCbmAv|Dwv@l{BkpEh|Cq}@dzBukHbiEaeC|dF}bHhuIm{H~cDoa@pjC{qBteBg^teEkbC`qBwkA`jEymEndFye@diFo|@huA_xFjaCwlFrDswBn{AkgBpXs}B`fDqnCvk@akCoYq_EfiCigEk^arFelBsdBb_@qFvbB_nB`wBef@jiGiv@ziAvt@btC{tAdwPtg@rzImgA~nI~oAlbH}k@hcBnLdgBqk@~kAw{EbiBsO`sAsxC|jAtMpvBpeB~sE{xBj~Lu_BruD{dGzwBodBpiMydMzdAohGnvEoeI`eMi|GfpAy|BzcCaiQprFejC~dCdjDp_HrtBvvBtKdgBdp@Ef{@{pA",
+      highlights: [
+        { name: "Crossing the Delaware", note: "Over the river at Easton and into Pennsylvania as the sun went down.", g: "Easton PA Delaware River" },
+        { name: "The Poconos at dusk", note: "Route 33 to 380 north, ridge forest the rest of the way to Scranton.", g: "Pocono Mountains" }
+      ],
+      stops: [
+        { name: "Jersey Shore • Monmouth County", note: "Evening departure, westbound for real now.", lat: 40.1557, lng: -74.1007 },
+        { name: "Moosic, PA", note: "SpringHill Suites, Montage Mountain. In by 8:17 PM.", lat: 41.3541, lng: -75.6704 }
       ] },
     { date: "Day 2 • Fri Jul 3", title: "Moosic → Dublin, OH", miles: "470 mi", drive: "7h 45m", color: "#2fb9ad",
       route: "oel{F|a{lMxq@~gDgo@jzCtzEznApy@`uCtdGl`HhnCzuA|qBdyHhaG~fHdnA`|EjmDzp@|~Je@liC~bDv`B~cDpdClqOlxB`eGjDfvB_}AdqAh_A|{K_JhkIiwC~pGsW||BfxAf{H_Sz{C`_@nyDxsApiFhz@~iXdz@lxDnXttI}eDbjLe|DvcEm|@fsKauCxyHdPb{RroEjfSo|@zuAsRl`JgeAdaA~hBjpSaNzhC}dA~lCjEf}Cyt@j`BrlDluItHx{DdmC|nPzhHhiJf}C~yO_}@bcC_SxkDowCphCuyA`{IupDthJzItrEh{AtgCx_ClmKpeA~rApuAp{JgfBhiC__AdbEbSzaE}dAlzEtTh}E_yBvlDi_AhlNaoA|_B}PtgDkkBhgDoiAbiHifI|eLed@rnBrh@h}JwKrrHqoCtyMg@frDmqAneGjz@t~CyRfvMdyAndGq{@rqCqlC|eCmAvkOwgBptMaQzcGvUhpCl}@prAfWphEqt@|vE~T|uIinBhtKm[h|HhoBtfFkOziDg_AhnCno@hpDkbAx`DbvB|`Kxz@|jAw\\rjGuhCdkLnh@xeI_|AdcJp~@hsz@zuAdeOyb@ppB`a@vo^mZnkChq@vaC|KzpFldBjgH?fqE|`AdcCtB~zDxmCzbHfwA|aNa`GhcKueG`oHqnCn}@moC~bFeVzhj@qbBbmv@rf@nk@crBrmC{[hbBebBqF}DekByc@ei@}c@fSvnCh_AdoC~nEzb@htCdjB|kApj@ntDf}DrrKlaApzJjmCb_BtWltBxnEtpArbKpxH~kEb}EboEftOjj@|wInzFf_Hf_C`sGb_Cn{CncAf}D|mCvrEjnA||Fn~B`uDl`InzWxkEboDtlNhzQl~DhrB|wCmqA~g@}bB_h@|bB}wClqAndMxoJt}BzvF`nIzsJjoLd~Sx|Axy@zsGfj@j~KxtPb|Aji@|oPvi@ruGjaFd_H~p@b^~`YldA~lDl@obA",
@@ -277,9 +287,10 @@ var MIGRATION = {
           var last = j.pings[j.pings.length - 1];
           placeHere(last.lat, last.lng, 'We are here — live, ' + fmtWhen(last.ts));
         })
-        .catch(function () { /* offline or endpoint down: keep what we have */ });
+        .catch(function (e) { console.warn('tracker refresh failed:', e); });
     }
 
+    window.__mig = { map: map, crumb: crumb, refreshTrack: refreshTrack };
     refreshTrack();
     setInterval(refreshTrack, (MIGRATION.tracker.pollSeconds || 60) * 1000);
   }
