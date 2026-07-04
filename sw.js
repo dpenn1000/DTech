@@ -1,7 +1,7 @@
 /* sw.js — The Great Pennington Migration (Arizona)
    Network-first for pages, cache-first for assets/fonts. Installable + offline. */
 
-const CACHE = 'pennington-az-v20';
+const CACHE = 'pennington-az-v21';
 
 const PRECACHE = [
   './',
@@ -14,10 +14,11 @@ const PRECACHE = [
   'trails.html',
   'bucketlist.html',
   'wellness.html',
-  'assets/site.css?v=14',
+  'assets/site.css?v=15',
   'assets/trails.css?v=12',
   'assets/site.js?v=12',
-  'assets/journey.js?v=6',
+  'assets/journey.js?v=7',
+  'assets/journal.js?v=1',
   'manifest.json',
   'icon-192.png',
   'icon-512.png',
@@ -47,7 +48,7 @@ self.addEventListener('fetch', e => {
 
   // Local images: stale-while-revalidate so a replaced photo (same filename)
   // updates itself on the next visit instead of sticking forever.
-  if (url.pathname.includes('/assets/img/')) {
+  if (url.pathname.includes('/assets/img/') || url.pathname.includes('/assets/journal/')) {
     e.respondWith(staleWhileRevalidate(e.request));
     return;
   }

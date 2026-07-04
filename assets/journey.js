@@ -18,7 +18,7 @@ var MIGRATION = {
   tracker: { url: "https://qjcozskyopetvigjhlmh.supabase.co/functions/v1/migration-ping", pollSeconds: 60 },
   current: { lat: 39.768, lng: -86.158, label: "We are here — I-70 West, Day 3" },
   days: [
-    { date: "Day 0 • Mon Jun 29", title: "Manchester, CT → Jersey Shore", miles: "180 mi", drive: "4h with the truck", color: "#f0c7a8",
+    { ymd: "2026-06-29", date: "Day 0 • Mon Jun 29", title: "Manchester, CT → Jersey Shore", miles: "180 mi", drive: "4h with the truck", color: "#f0c7a8",
       route: "kj~}FjjsyLp]fhCxj@iJ{E~vDqu@puAlPl_Ch`CrgI``Bng@biAwpAlgCqm@b{Bjy@heTxoLn{FncHx`Bzj@p_F|{GjeNjeGdcFxsIjvAxkGljEnrF|y@d}Dl_Ctt@vyFbpFhjAziMnaBvnDn_Dd`B~}CaGld@nkGv~A`rAbs@tuEb}BxbF|Cf~In_Bz_ItfBdqDbtAjcAhj@|zEpbA`hAvt@r|CnkAnnIzpBncG`xDjdEzuArzI~fLnkLftBzfAdx@`aExgGyt@rc@dq@kyC|pY_bB~z@y\\bgAjeAvcCzmEjoAdfClsFbhDdiEzsCz~BvcGh}Bvq@rsAtcIpmFv~@f{A~oLbmGhqCprCxaBtdFbu@mr@zsGf\\txAok@buDgbEb|CajJl|DgvDp_A{lD~|A}lAtnCc}EpzH}aAvuB{hAr|BnXvyC|`BhfLdL",
       highlights: [
         { name: "George Washington Bridge", note: "Across the Hudson at dawn, before the city woke up.", g: "George Washington Bridge" },
@@ -28,7 +28,7 @@ var MIGRATION = {
         { name: "26 Hampton Dr • Manchester, CT", note: "4:36 AM start. Keys handed over, truck rolling. Goodbye, Connecticut.", lat: 41.7759, lng: -72.5215 },
         { name: "Jersey Shore • Monmouth County", note: "Family send-off at the Shore, June 29 to July 2.", lat: 40.1557, lng: -74.1007 }
       ] },
-    { date: "Day 1 • Thu Jul 2", title: "Jersey Shore → Moosic, PA", miles: "150 mi", drive: "3h 30m", color: "#ffa24a",
+    { ymd: "2026-07-02", date: "Day 1 • Thu Jul 2", title: "Jersey Shore → Moosic, PA", miles: "150 mi", drive: "3h 30m", color: "#ffa24a",
       route: "o}atFnxgcMclKvhDm|@htBmaHlaCbmAv|Dwv@l{BkpEh|Cq}@dzBukHbiEaeC|dF}bHhuIm{H~cDoa@pjC{qBteBg^teEkbC`qBwkA`jEymEndFye@diFo|@huA_xFjaCwlFrDswBn{AkgBpXs}B`fDqnCvk@akCoYq_EfiCigEk^arFelBsdBb_@qFvbB_nB`wBef@jiGiv@ziAvt@btC{tAdwPtg@rzImgA~nI~oAlbH}k@hcBnLdgBqk@~kAw{EbiBsO`sAsxC|jAtMpvBpeB~sE{xBj~Lu_BruD{dGzwBodBpiMydMzdAohGnvEoeI`eMi|GfpAy|BzcCaiQprFejC~dCdjDp_HrtBvvBtKdgBdp@Ef{@{pA",
       highlights: [
         { name: "Crossing the Delaware", note: "Over the river at Easton and into Pennsylvania as the sun went down.", g: "Easton PA Delaware River" },
@@ -38,7 +38,7 @@ var MIGRATION = {
         { name: "Jersey Shore • Monmouth County", note: "Evening departure, westbound for real now.", lat: 40.1557, lng: -74.1007 },
         { name: "Moosic, PA", note: "SpringHill Suites, Montage Mountain. In by 8:17 PM.", lat: 41.3541, lng: -75.6704 }
       ] },
-    { date: "Day 2 • Fri Jul 3", title: "Moosic → Dublin, OH", miles: "470 mi", drive: "7h 45m", color: "#2fb9ad",
+    { ymd: "2026-07-03", date: "Day 2 • Fri Jul 3", title: "Moosic → Dublin, OH", miles: "470 mi", drive: "7h 45m", color: "#2fb9ad",
       route: "oel{F|a{lMxq@~gDgo@jzCtzEznApy@`uCtdGl`HhnCzuA|qBdyHhaG~fHdnA`|EjmDzp@|~Je@liC~bDv`B~cDpdClqOlxB`eGjDfvB_}AdqAh_A|{K_JhkIiwC~pGsW||BfxAf{H_Sz{C`_@nyDxsApiFhz@~iXdz@lxDnXttI}eDbjLe|DvcEm|@fsKauCxyHdPb{RroEjfSo|@zuAsRl`JgeAdaA~hBjpSaNzhC}dA~lCjEf}Cyt@j`BrlDluItHx{DdmC|nPzhHhiJf}C~yO_}@bcC_SxkDowCphCuyA`{IupDthJzItrEh{AtgCx_ClmKpeA~rApuAp{JgfBhiC__AdbEbSzaE}dAlzEtTh}E_yBvlDi_AhlNaoA|_B}PtgDkkBhgDoiAbiHifI|eLed@rnBrh@h}JwKrrHqoCtyMg@frDmqAneGjz@t~CyRfvMdyAndGq{@rqCqlC|eCmAvkOwgBptMaQzcGvUhpCl}@prAfWphEqt@|vE~T|uIinBhtKm[h|HhoBtfFkOziDg_AhnCno@hpDkbAx`DbvB|`Kxz@|jAw\\rjGuhCdkLnh@xeI_|AdcJp~@hsz@zuAdeOyb@ppB`a@vo^mZnkChq@vaC|KzpFldBjgH?fqE|`AdcCtB~zDxmCzbHfwA|aNa`GhcKueG`oHqnCn}@moC~bFeVzhj@qbBbmv@rf@nk@crBrmC{[hbBebBqF}DekByc@ei@}c@fSvnCh_AdoC~nEzb@htCdjB|kApj@ntDf}DrrKlaApzJjmCb_BtWltBxnEtpArbKpxH~kEb}EboEftOjj@|wInzFf_Hf_C`sGb_Cn{CncAf}D|mCvrEjnA||Fn~B`uDl`InzWxkEboDtlNhzQl~DhrB|wCmqA~g@}bB_h@|bB}wClqAndMxoJt}BzvF`nIzsJjoLd~Sx|Axy@zsGfj@j~KxtPb|Aji@|oPvi@ruGjaFd_H~p@b^~`YldA~lDl@obA",
       highlights: [
         { name: "I-80 across the Alleghenies", note: "Long ridge-and-valley views through central Pennsylvania.", g: "Allegheny Mountains I-80 Pennsylvania" },
@@ -51,7 +51,7 @@ var MIGRATION = {
         { name: "Der Dutchman • Bellville, OH", note: "Amish comfort food for dinner.", lat: 40.6206, lng: -82.5158 },
         { name: "Dublin, OH", note: "Hyatt Place Dublin/Columbus. Overnight.", lat: 40.0980, lng: -83.1264 }
       ] },
-    { date: "Day 3 • Sat Jul 4", title: "Dublin → St. Louis, MO", miles: "430 mi", drive: "7h 30m", color: "#7a5cff",
+    { ymd: "2026-07-04", date: "Day 3 • Sat Jul 4", title: "Dublin → St. Louis, MO", miles: "430 mi", drive: "7h 30m", color: "#7a5cff",
       route: "osvsFbsjzNhGn~@rw@tKv`O{{BhpDxYqYz{VxmB|iK|cCp}X_@`pLh}@jrPoQxuK|wGn~LaSzta@tqDz|Nu`@nr\\~f@~dT|u@rqGgJ|cTpsBnnFhPxzq@bj@`gFgDb|K_mEtjFu~@zzDvxBxfd@MxynAlr@~wDdCr{EvpBhrLzi@zxy@tcBxhJ|\\zbM}s@tdBtu@duIdxAzdDx}Dr\\nK`gOrhFdhErTnsBlvA|uB`qEbnOxwGpcOz{I|ob@juD|`[k@hkJrm@ptE`jDjuPzkDnoIbdCruOmJvsNdc@xkK~_BfeHaDr}TkkB|iD{AtqDrnAt~Jfw@viBfm@~n]rzAnjDt{BvmPjlCf`H`_DrwNphCdeItaEloHl|@pyInfBntE~ZtyE`tBh}DptH`sYdlA~xBj~Dl`d@ry@`fAn_E|aAvu@zoAb{U|lkAeTp}YzzGfcVp~Ar}Afa@~mDngErzKhxEzaZjlAhtDrIznEttGjnNdPfnSbqBnjEdxAr_Zl[jq@dzDz_AzbB|jLtaDllEtkA`vGxGxnFffDvzEfi@lpCxhAdq@gUplBoz@iL|rAxi@p`@tuAat@jeIep@sc@",
       highlights: [
         { name: "Indianapolis Motor Speedway", note: "Home of the 500, just off I-70 as you clear Indy.", g: "Indianapolis Motor Speedway" },
@@ -63,7 +63,7 @@ var MIGRATION = {
         { name: "Gateway Arch • St. Louis", note: "Cross the Mississippi, walk under the Arch.", lat: 38.6245, lng: -90.1866 },
         { name: "The Grove • St. Louis", note: "Airbnb night. Laundry night.", lat: 38.6270, lng: -90.2530 }
       ] },
-    { date: "Day 4 • Sun Jul 5", title: "St. Louis → Hays, KS", miles: "530 mi", drive: "~7h 15m in traffic", color: "#6db28f",
+    { ymd: "2026-07-05", date: "Day 4 • Sun Jul 5", title: "St. Louis → Hays, KS", miles: "530 mi", drive: "~7h 15m in traffic", color: "#6db28f",
       route: "siwjFfpzePo_@nq@vUdeIw`Anob@axA`oKi`Bx}Bgj@xuMknEpmCavArnH_lGppGwgGloLgJrdFlc@d_Du`D~pUfhAr}QyKp_Mgs@z_DafBppCkQrxGwmIbdc@sf@tvLdvAldPydBhzE{Gp{KybDpeRag@t`Wgo@rnCuKxib@sn@d~Zch@tbDzWhuFg{@ly\\bU~eBj}DlzHzh@h`lA{sAnsCkuAhhg@u~@boIwp@hvg@k~AfaXh\\bfG}Tt`M_p@n`D}cBrxqAukD`dk@oUfbOo|C|jLipC`fAoSlwM|q@xbAwuAfkH|Fto`@pjFjpb@jkCpnJzdHr~Pfm@b}Lgo@noEyYbtZgmDtsY{^tjOci@hwBs}AsEcuAtgFjVf{CrmAbsCxVp~J{n@pdFq@bf|@ym@peDdBdt_Bnh@nfJppC~_D`bApqFxzCbcG{E~nKdeAtyUjyGllU`D|uHhuAvoN~F`yTn_C~rFxd@z`Wp{CbyI{HnynA~aAzeNvr@l}A`aAbqINft~@ct@~|MZrin@yj@d}EhIxmm@qaBpfHkA|`[gdCvbH",
       highlights: [
         { name: "Joe's Kansas City BBQ", note: "Legendary BBQ in a working gas station, 10 minutes off I-70 in KC. Line moves fast.", g: "Joe's Kansas City Bar-B-Que" },
@@ -75,7 +75,7 @@ var MIGRATION = {
         { name: "The Grove • St. Louis", note: "70 west. All day.", lat: 38.6270, lng: -90.2530 },
         { name: "Hays, KS", note: "TownePlace Suites. Middle of the map, middle of the trip.", lat: 38.9000, lng: -99.3180 }
       ] },
-    { date: "Day 5 • Mon Jul 6", title: "Hays → Rifle, CO", miles: "560 mi", drive: "~8h 05m in traffic", color: "#ff7a59",
+    { ymd: "2026-07-06", date: "Day 5 • Mon Jul 6", title: "Hays → Rifle, CO", miles: "560 mi", drive: "~8h 05m in traffic", color: "#ff7a59",
       route: "_tllF`ae}QccC~cK}EbtGcjD|qR{Ev~LmoDfoQqNbaFgbGvpf@}Ghpm@ofMr`^[vaPgxA|gNuG`yz@evO~uNueTjyOgkAv{CcxFveFqa@hqAcH~at@j~EldOjFduaCnuBrw`@ncBltE`DjhuBbaCz_V_jA|oIoPfzOtaAtabAphAz{LsPfuMrh@~xE}iAfuCe@vtH}q@hdFawCbnHczElzC}cCtiE}sHpuC_mVnpP_iR`{JgtE`{EiiCxiFmkGnb]gt@faY}Ktp|@exDt_Nes@zsP}v@vlb@vVjeIfg@v|AjtBlEtkAps@xzHrkJkuBzsRpnAhmCq_At|BcgAhcKcjClgCp]f_O{iClnJcQ~vHzc@|wCziBrzDzsEp}A~xAdpDvOxiOq{@neIjxBliD|t@ttNbaBjhC|oBdnI~pAx}C`sAvSjtHbtIh~CzvAr}@k^vw@vq@foA}J`[z{Boe@|cFkjB`yAekC|[gxDdsDgxAqSij@jzCehBjw@eoAaDgqBvnEz]rvHeV~uDfdF|tJqdEz{MrJnuBqgB~bJmIjlDkkF`|EomBjvEzg@ddD~cCnvDxiAhzGboBb_FyKn{YzgAtxHmCreIzwBnkD|GxgBzhHbwO~@zxA|vBtgC}y@voDnh@pv@oBbwDjjArsAsjAbjDhSbfHelB~~FjJ`xE`m@fwBo\\ldF~rAfeEpoAlzMsGftD`rAxvDfi@vxM",
       highlights: [
         { name: "First sight of the Rockies", note: "The wall of mountains appears on the horizon west of Limon, almost 100 miles before Denver.", g: "Limon CO" },
@@ -91,7 +91,7 @@ var MIGRATION = {
         { name: "Glenwood Canyon • Hanging Lake, CO", note: "The prettiest stretch of interstate in America.", lat: 39.6019, lng: -107.1866 },
         { name: "Rifle, CO", note: "Hampton Inn & Suites. Overnight.", lat: 39.5266, lng: -107.7729 }
       ] },
-    { date: "Day 6 • Tue Jul 7", title: "Rifle → Tusayan, AZ", miles: "500 mi", drive: "~8h 40m in traffic", color: "#ffd166",
+    { ymd: "2026-07-07", date: "Day 6 • Tue Jul 7", title: "Rifle → Tusayan, AZ", miles: "500 mi", drive: "~8h 40m in traffic", color: "#ffd166",
       route: "ezfpFrhxpSh`@zvMj`CdhL{Ev`ClhC`sFpZ|qG|hAfpCtaIdpIdnFhuLxiBpYlcAnzBjqJfjF|h@bpBtoBhjAb~BwTlj@|iB~m@e~Ad_BoBfuAvmAbKnhA|jABn`BzpBrxAbW|`@pfA~sDdyAmN`dHlqBpeN{g@t~HnVpiDkaAlxAld@djTisGd_Nk`DxwPq_Fd~GakBn{F`gAteHrsDxeI`YxwCgk@hnDjl@zeIfhKpoIn{OpgUttE`lExmLpmRul@zwi@iv@f}Je`A`~C|vBrzQvpMqi@r|MggIlvH}gCxlDu~DzaEyaAfoHihEv`CcaFyGmeAh~@y~AcDuvBlxC}nD|~BqZvjAosCdjKqdKvsG}aEpuAuOvcCx}BnyCrp@jmBo|BjsF}t@vvG}vIzsDv`Ax|E}y@bpEzs@hoMkpBl{IkbCnjOz{AlyB{cAzg[kw@rwD`zBpdBvwFvjLzyExuCrEdnA`bDfwEjvB`aGn@fh@ldAbtIn\\roFocDzaEoAl_Cn_@x{DzxCb_Gt`CnhIjuAnrBdpBfM`uCvsAhtEzn@xwJcCda@u_Bff@qu@tcBhqFxqMdz@bdG~iBdrAfaC|nFfnHqf@sGny@~dCzkD~IfpC|kCr{KzcFhgIlu@fpGrbD|_ErwCpsJt`@`OrsCqsLauCvsLdgCvs@||WtgPxxAkd@bn@{mBl}AukApbLit@tdDn~D`fBay@b}Ap~Ut`E~lIlgHxcI|iEbIveAby@fdIflTlcG`pKnsOhyj@drK|lHf}@psCl}GriKtxEvjAr|LjdLvtGl{X|aA`}@dvAbyVnvAlbAxd@`kCfiGpf@biG{^`{P`mAfuDxq@v|AbeA}XfrIgjBpnF{cE`uEirAtuC`S{dAg[vbBaGlnDm_BruImAzcFrcB`gEaAbnDstCfxBoxFjwBeuAyJiw@xcAon@n@eh@|kBizA`ZvtDrvGwCbuEh|DbzEjmAdoD}zCr`DmCpiDgpBntFwiCvUipBxgFxiAlbB|`LbZ",
       highlights: [
         { name: "Arches National Park", note: "US-191 runs right past the entrance at Moab. Even without going in, the red rock along the road is unreal.", g: "Arches National Park entrance" },
@@ -106,7 +106,7 @@ var MIGRATION = {
         { name: "Little Colorado River Gorge • Cameron, AZ", note: "Navajo Tribal Park overlook on AZ-64.", lat: 35.9250, lng: -111.5670 },
         { name: "Tusayan, AZ", note: "Grand Canyon Hotel & Suites. Canyon sunset if there's time.", lat: 35.9735, lng: -112.1258 }
       ] },
-    { date: "Day 7 • Wed Jul 8", title: "Grand Canyon → Goodyear", miles: "230 mi", drive: "~3h 55m in traffic", color: "#e86aa6",
+    { ymd: "2026-07-08", date: "Day 7 • Wed Jul 8", title: "Grand Canyon → Goodyear", miles: "230 mi", drive: "~3h 55m in traffic", color: "#e86aa6",
       highlights: [
         { name: "Williams", note: "Route 66 town at the bottom of AZ-64. Good coffee before the last leg.", g: "Williams AZ Route 66" },
         { name: "Montezuma Castle", note: "An 800-year-old cliff dwelling five minutes off I-17 at exit 289.", g: "Montezuma Castle National Monument" },
@@ -210,6 +210,12 @@ var MIGRATION = {
     var stopsHtml = day.stops.map(function (s) {
       return '<li><b>' + s.name + '</b>' + (s.note ? ' — ' + s.note : '') + '</li>';
     }).join('');
+    var dayPics = (window.MIGRATION_PHOTOS || []).filter(function (p) {
+      return p.ts && day.ymd && p.ts.slice(0, 10) === day.ymd;
+    });
+    var picsHtml = dayPics.map(function (p, i) {
+      return '<button class="mr-pic" data-i="' + i + '"><img src="' + p.t + '" alt="" loading="lazy"></button>';
+    }).join('');
     var hlHtml = (day.highlights || []).map(function (h) {
       var name = h.g
         ? '<a href="https://www.google.com/maps/search/' + encodeURIComponent(h.g) + '" target="_blank" rel="noopener">' + h.name + ' &nearr;</a>'
@@ -228,6 +234,7 @@ var MIGRATION = {
       '<div class="mr-drawer"><div class="mr-inner">' +
         '<div class="mr-h">The stops</div><ul>' + stopsHtml + '</ul>' +
         (hlHtml ? '<div class="mr-h">Worth knowing on the way</div><ul>' + hlHtml + '</ul>' : '') +
+        (picsHtml ? '<div class="mr-h">The camera roll</div><div class="mr-pics">' + picsHtml + '</div>' : '') +
       '</div></div>';
     daysList.appendChild(row);
 
@@ -238,6 +245,11 @@ var MIGRATION = {
     });
     row.querySelector('.mr-main').addEventListener('click', function () {
       row.classList.toggle('open');
+    });
+    row.querySelectorAll('.mr-pic').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        openLightbox(dayPics, parseInt(btn.getAttribute('data-i'), 10));
+      });
     });
   });
 
@@ -262,6 +274,66 @@ var MIGRATION = {
   }
 
   map.fitBounds(bounds, { padding: [36, 36] });
+
+  /* ---- photo journal: lightbox + photo pins ---- */
+  var lbEl = null;
+  function openLightbox(pics, idx) {
+    if (!lbEl) {
+      lbEl = document.createElement('div');
+      lbEl.className = 'mig-lb';
+      lbEl.innerHTML = '<button class="lb-x" aria-label="Close">&times;</button>' +
+        '<button class="lb-prev" aria-label="Previous">&#8249;</button>' +
+        '<figure><img alt=""><figcaption></figcaption></figure>' +
+        '<button class="lb-next" aria-label="Next">&#8250;</button>';
+      document.body.appendChild(lbEl);
+      lbEl.addEventListener('click', function (e) {
+        if (e.target === lbEl || e.target.classList.contains('lb-x')) closeLb();
+      });
+      lbEl.querySelector('.lb-prev').addEventListener('click', function () { showLb(lbEl._pics, lbEl._i - 1); });
+      lbEl.querySelector('.lb-next').addEventListener('click', function () { showLb(lbEl._pics, lbEl._i + 1); });
+      document.addEventListener('keydown', function (e) {
+        if (!lbEl.classList.contains('on')) return;
+        if (e.key === 'Escape') closeLb();
+        if (e.key === 'ArrowLeft') showLb(lbEl._pics, lbEl._i - 1);
+        if (e.key === 'ArrowRight') showLb(lbEl._pics, lbEl._i + 1);
+      });
+    }
+    showLb(pics, idx);
+    lbEl.classList.add('on');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLb() { lbEl.classList.remove('on'); document.body.style.overflow = ''; }
+  function showLb(pics, i) {
+    i = (i + pics.length) % pics.length;
+    lbEl._pics = pics; lbEl._i = i;
+    var p = pics[i];
+    lbEl.querySelector('img').src = p.f;
+    lbEl.querySelector('figcaption').textContent =
+      (p.day ? p.day + (p.time ? ' • ' + p.time : '') : '') +
+      (pics.length > 1 ? '  (' + (i + 1) + '/' + pics.length + ')' : '');
+    lbEl.querySelector('.lb-prev').style.display = pics.length > 1 ? '' : 'none';
+    lbEl.querySelector('.lb-next').style.display = pics.length > 1 ? '' : 'none';
+  }
+
+  if (window.MIGRATION_PHOTOS && MIGRATION_PHOTOS.length) {
+    var phGroups = {};
+    MIGRATION_PHOTOS.forEach(function (p) {
+      var k = Math.round(p.lat / 0.03) + '_' + Math.round(p.lng / 0.03);
+      (phGroups[k] = phGroups[k] || []).push(p);
+    });
+    Object.keys(phGroups).forEach(function (k) {
+      var g = phGroups[k];
+      var mk = L.marker([g[0].lat, g[0].lng], {
+        icon: L.divIcon({
+          className: 'mig-photo', iconSize: [46, 46],
+          html: '<img src="' + g[0].t + '" alt="">' + (g.length > 1 ? '<span class="ph-n">' + g.length + '</span>' : '')
+        }),
+        zIndexOffset: 500
+      }).addTo(map);
+      mk.on('click', function () { openLightbox(g, 0); });
+      bounds.extend([g[0].lat, g[0].lng]);
+    });
+  }
 
   /* ---- live tracker: actual GPS breadcrumb + moving pin ---- */
   if (MIGRATION.tracker && MIGRATION.tracker.url) {
