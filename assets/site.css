@@ -390,3 +390,49 @@ section { position: relative; z-index: 2; padding: var(--pad-sec); max-width: va
   .reveal { opacity: 1; transform: none; }
   html { scroll-behavior: auto; }
 }
+
+/* ---------- JOURNEY MAP (home: The Great Pennington Migration) ---------- */
+.mig-shell {
+  background: var(--night-2); border: 1px solid var(--line);
+  border-radius: var(--r-lg); overflow: hidden;
+}
+#mig-map { width: 100%; height: 520px; background: var(--night); z-index: 1; }
+#mig-map .leaflet-control-attribution {
+  background: rgba(31,20,25,.75); color: var(--sand-mut); font-size: 10px;
+}
+#mig-map .leaflet-control-attribution a { color: var(--sand-mut); }
+#mig-map .leaflet-bar a {
+  background: var(--night-2); color: var(--sand); border-color: var(--line);
+}
+#mig-map .leaflet-popup-content-wrapper, #mig-map .leaflet-popup-tip {
+  background: var(--night-2); color: var(--sand);
+  border: 1px solid var(--line-2); box-shadow: 0 10px 24px -12px rgba(0,0,0,.7);
+}
+#mig-map .leaflet-popup-content { margin: 10px 14px; }
+.mig-pop .mp-day  { font-family: var(--f-mono); font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: var(--sun-2); margin-bottom: 2px; }
+.mig-pop .mp-name { font-weight: 800; font-size: .95rem; line-height: 1.2; }
+.mig-pop .mp-note { font-size: .82rem; color: var(--sand-mut); margin-top: 3px; line-height: 1.35; }
+.mig-legend { display: flex; flex-wrap: wrap; gap: .6rem; padding: 1rem 1.1rem; border-top: 1px solid var(--line); }
+.mig-day {
+  display: inline-flex; align-items: center; gap: .55rem;
+  font-family: var(--f-body); font-size: .82rem; font-weight: 600; color: var(--sand);
+  background: var(--night); border: 1px solid var(--line); border-radius: var(--r-pill);
+  padding: .42rem .95rem; cursor: pointer;
+  transition: border-color .15s ease, opacity .15s ease;
+}
+.mig-day:hover { border-color: var(--sun); }
+.mig-day .dot { width: 11px; height: 11px; border-radius: 50%; flex: none; }
+.mig-day .dt { font-family: var(--f-mono); font-size: .68rem; color: var(--sand-mut); font-weight: 400; }
+.mig-day.off { opacity: .35; }
+.mig-note { padding: 0 1.1rem 1rem; color: var(--sand-mut); font-size: .8rem; font-family: var(--f-mono); }
+.mig-here span {
+  display: block; width: 18px; height: 18px; border-radius: 50%;
+  background: #fff; border: 4px solid var(--sun);
+  box-shadow: 0 0 0 0 rgba(255,122,69,.55); animation: mig-pulse 2s infinite;
+}
+@keyframes mig-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255,122,69,.55); }
+  70% { box-shadow: 0 0 0 16px rgba(255,122,69,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,122,69,0); }
+}
+@media (max-width: 640px) { #mig-map { height: 400px; } }

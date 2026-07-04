@@ -11,7 +11,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=12">
+<link rel="stylesheet" href="assets/site.css?v=13">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 </head>
 <body>
 
@@ -46,6 +47,16 @@
     <div class="countdown cd-sm" id="countdown-lola"></div>
   </div>
 </header>
+
+<section>
+  <div class="sec-head reveal"><span class="sec-num">The Drive</span><h2>2,700 Miles West</h2></div>
+  <p class="sec-sub reveal">Connecticut to New Jersey to Arizona, day by day. Each color is one day on the road, every pin is a stop. Tap a pin for the story, tap a day below to show or hide it.</p>
+  <div class="mig-shell reveal">
+    <div id="mig-map"></div>
+    <div class="mig-legend" id="mig-legend"></div>
+    <div class="mig-note">The white pin is us. Follow along.</div>
+  </div>
+</section>
 
 <section>
   <p class="sec-sub center wrap-narrow reveal">Five things we can't wait to show you, all near the new house. Pick one and dive in.</p>
@@ -95,5 +106,7 @@
 </footer>
 
 <script src="assets/site.js?v=12"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="assets/journey.js?v=1"></script>
 </body>
 </html>

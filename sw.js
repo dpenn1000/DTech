@@ -1,7 +1,7 @@
 /* sw.js — The Great Pennington Migration (Arizona)
    Network-first for pages, cache-first for assets/fonts. Installable + offline. */
 
-const CACHE = 'pennington-az-v14';
+const CACHE = 'pennington-az-v15';
 
 const PRECACHE = [
   './',
@@ -14,15 +14,16 @@ const PRECACHE = [
   'trails.html',
   'bucketlist.html',
   'wellness.html',
-  'assets/site.css?v=12',
+  'assets/site.css?v=13',
   'assets/trails.css?v=12',
   'assets/site.js?v=12',
+  'assets/journey.js?v=1',
   'manifest.json',
   'icon-192.png',
   'icon-512.png',
 ];
 
-const CACHE_FIRST_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com'];
+const CACHE_FIRST_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com', 'unpkg.com'];
 
 self.addEventListener('install', e => {
   e.waitUntil(
