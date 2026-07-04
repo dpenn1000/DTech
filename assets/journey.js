@@ -10,6 +10,10 @@
    falls back to a straight line until we regenerate it.
    ------------------------------------------------------------------ */
 var MIGRATION = {
+  /* Live tracker: the phone posts GPS pings here and the map polls it.
+     Set url to null to turn live tracking off. "current" below is the
+     fallback pin shown until the first real ping arrives. */
+  tracker: { url: "https://qjcozskyopetvigjhlmh.supabase.co/functions/v1/migration-ping", pollSeconds: 60 },
   current: { lat: 39.768, lng: -86.158, label: "We are here — I-70 West, Day 3" },
   days: [
     { date: "Day 1 • Thu Jul 2", title: "Manchester, CT → Moosic, PA", miles: "190 mi", color: "#ffa24a",
@@ -155,14 +159,54 @@ var MIGRATION = {
     legend.appendChild(chip);
   });
 
+  var here = null;
+  function placeHere(lat, lng, label) {
+    if (!here) {
+      here = L.marker([lat, lng], {
+        icon: L.divIcon({ className: 'mig-here', iconSize: [18, 18], html: '<span></span>' }),
+        zIndexOffset: 1000
+      }).addTo(map);
+    } else {
+      here.setLatLng([lat, lng]);
+    }
+    here.bindPopup('<div class="mig-pop"><div class="mp-name">' + label + '</div></div>');
+  }
+
   if (MIGRATION.current) {
-    var here = L.marker([MIGRATION.current.lat, MIGRATION.current.lng], {
-      icon: L.divIcon({ className: 'mig-here', iconSize: [18, 18], html: '<span></span>' }),
-      zIndexOffset: 1000
-    }).addTo(map);
-    here.bindPopup('<div class="mig-pop"><div class="mp-name">' + MIGRATION.current.label + '</div></div>');
+    placeHere(MIGRATION.current.lat, MIGRATION.current.lng, MIGRATION.current.label);
     bounds.extend([MIGRATION.current.lat, MIGRATION.current.lng]);
   }
 
   map.fitBounds(bounds, { padding: [36, 36] });
+
+  /* ---- live tracker: actual GPS breadcrumb + moving pin ---- */
+  if (MIGRATION.tracker && MIGRATION.tracker.url) {
+    var crumbCasing = L.polyline([], { color: '#1f1419', weight: 6, opacity: .55 }).addTo(map);
+    var crumb = L.polyline([], { color: '#ffffff', weight: 3, opacity: .95, dashArray: '1 7', lineCap: 'round' }).addTo(map);
+
+    function fmtWhen(iso) {
+      var d = new Date(iso);
+      var mins = Math.round((Date.now() - d.getTime()) / 60000);
+      if (mins < 2) return 'just now';
+      if (mins < 90) return mins + ' min ago';
+      return d.toLocaleString([], { weekday: 'short', hour: 'numeric', minute: '2-digit' });
+    }
+
+    function refreshTrack() {
+      fetch(MIGRATION.tracker.url)
+        .then(function (r) { return r.json(); })
+        .then(function (j) {
+          if (!j || !j.ok || !j.pings || !j.pings.length) return;
+          var pts = j.pings.map(function (p) { return [p.lat, p.lng]; });
+          crumbCasing.setLatLngs(pts);
+          crumb.setLatLngs(pts);
+          var last = j.pings[j.pings.length - 1];
+          placeHere(last.lat, last.lng, 'We are here — live, ' + fmtWhen(last.ts));
+        })
+        .catch(function () { /* offline or endpoint down: keep what we have */ });
+    }
+
+    refreshTrack();
+    setInterval(refreshTrack, (MIGRATION.tracker.pollSeconds || 60) * 1000);
+  }
 })();
