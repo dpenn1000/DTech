@@ -316,6 +316,7 @@ var MIGRATION = {
   }
 
   if (window.MIGRATION_PHOTOS && MIGRATION_PHOTOS.length) {
+    var photoLayer = L.layerGroup().addTo(map);
     var phGroups = {};
     MIGRATION_PHOTOS.forEach(function (p) {
       var k = Math.round(p.lat / 0.03) + '_' + Math.round(p.lng / 0.03);
@@ -329,10 +330,22 @@ var MIGRATION = {
           html: '<img src="' + g[0].t + '" alt="">' + (g.length > 1 ? '<span class="ph-n">' + g.length + '</span>' : '')
         }),
         zIndexOffset: 500
-      }).addTo(map);
+      }).addTo(photoLayer);
       mk.on('click', function () { openLightbox(g, 0); });
       bounds.extend([g[0].lat, g[0].lng]);
     });
+
+    /* Photos on/off chip */
+    var phChip = document.createElement('button');
+    phChip.className = 'mig-day';
+    phChip.innerHTML = '<span class="dot" style="background:#fff;border-radius:4px"></span><span>Photos</span><span class="dt">' +
+      MIGRATION_PHOTOS.length + ' pinned</span>';
+    phChip.addEventListener('click', function () {
+      var on = map.hasLayer(photoLayer);
+      if (on) map.removeLayer(photoLayer); else photoLayer.addTo(map);
+      phChip.classList.toggle('off', on);
+    });
+    legend.appendChild(phChip);
   }
 
   /* ---- live tracker: actual GPS breadcrumb + moving pin ---- */
