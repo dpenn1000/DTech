@@ -181,6 +181,42 @@ window.MIGRATION_PHOTOS = [
   "time": "4:13 PM"
  },
  {
+  "f": "assets/journal/20260704_194317.jpg",
+  "t": "assets/journal/20260704_194317-t.jpg",
+  "lat": 38.62871,
+  "lng": -90.18644,
+  "ts": "2026-07-04T19:43:17",
+  "day": "Jul 4",
+  "time": "7:43 PM"
+ },
+ {
+  "f": "assets/journal/20260704_194338.jpg",
+  "t": "assets/journal/20260704_194338-t.jpg",
+  "lat": 38.62871,
+  "lng": -90.18644,
+  "ts": "2026-07-04T19:43:39",
+  "day": "Jul 4",
+  "time": "7:43 PM"
+ },
+ {
+  "f": "assets/journal/20260704_194840.jpg",
+  "t": "assets/journal/20260704_194840-t.jpg",
+  "lat": 38.62871,
+  "lng": -90.18644,
+  "ts": "2026-07-04T19:48:40",
+  "day": "Jul 4",
+  "time": "7:48 PM"
+ },
+ {
+  "f": "assets/journal/20260704_194933.jpg",
+  "t": "assets/journal/20260704_194933-t.jpg",
+  "lat": 38.62871,
+  "lng": -90.18644,
+  "ts": "2026-07-04T19:49:33",
+  "day": "Jul 4",
+  "time": "7:49 PM"
+ },
+ {
   "f": "assets/journal/20260704_195606.jpg",
   "t": "assets/journal/20260704_195606-t.jpg",
   "lat": 38.62871,
@@ -368,5 +404,14 @@ window.MIGRATION_PHOTOS = [
   "ts": "2026-07-05T09:14:43",
   "day": "Jul 5",
   "time": "9:14 AM"
+ },
+ {
+  "f": "assets/journal/20260705_150009.jpg",
+  "t": "assets/journal/20260705_150009-t.jpg",
+  "lat": 38.97675,
+  "lng": -93.40255,
+  "ts": "2026-07-05T15:00:09",
+  "day": "Jul 5",
+  "time": "3:00 PM"
  }
 ];
