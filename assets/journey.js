@@ -408,21 +408,22 @@ var MIGRATION = {
   }
 
   var tickPrev = {};
-  function animateNum(id, to) {
+  function animateNum(id, to, suffix) {
     var el = document.getElementById(id);
     if (!el) return;
+    suffix = suffix || '';
     var from = tickPrev[id] || 0; tickPrev[id] = to;
     /* write the final value first so the number is always correct even if
        rAF is throttled (background tab, reduced motion); animate on top
        only when the page is visible */
-    el.textContent = Math.round(to).toLocaleString();
+    el.textContent = Math.round(to).toLocaleString() + suffix;
     if (from === to || document.hidden || !window.requestAnimationFrame) return;
     var t0 = null, dur = 900;
     function step(ts) {
       if (t0 === null) t0 = ts;
       var k = Math.min(1, (ts - t0) / dur);
       k = 1 - Math.pow(1 - k, 3);   // ease-out
-      el.textContent = Math.round(from + (to - from) * k).toLocaleString();
+      el.textContent = Math.round(from + (to - from) * k).toLocaleString() + suffix;
       if (k < 1) requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
@@ -435,9 +436,19 @@ var MIGRATION = {
     var pct = plannedTotal ? Math.min(100, 100 * (plannedTotal - togo) / plannedTotal) : 0;
     animateNum('mi-driven', driven);
     animateNum('mi-togo', togo);
-    var fill = document.getElementById('mi-fill');
-    if (fill) fill.style.width = pct.toFixed(1) + '%';
+    animateNum('mi-pct', pct, '%');
+    tickPct = pct;
+    setFillPx();
   }
+
+  /* fill width is set in absolute px (percentage widths collapse to 0 on some
+     renderers); recompute on resize so it stays right */
+  var tickPct = 0;
+  function setFillPx() {
+    var f = document.getElementById('mi-fill'), t = document.querySelector('.stat-track');
+    if (f && t) f.style.width = Math.round(t.clientWidth * tickPct / 100) + 'px';
+  }
+  window.addEventListener('resize', setFillPx);
 
   /* ---- live tracker: actual GPS breadcrumb + moving pin ---- */
   if (MIGRATION.tracker && MIGRATION.tracker.url) {
