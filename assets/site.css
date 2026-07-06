@@ -552,3 +552,28 @@ section { position: relative; z-index: 2; padding: var(--pad-sec); max-width: va
 }
 .mig-photo .ph-play { font-size: .85rem; }
 .mr-pic { position: relative; }
+
+/* Journey map: mileage ticker */
+.mig-stats {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  padding: 1rem 1.3rem .7rem; gap: 1rem;
+}
+.mig-stats .stat { display: flex; flex-direction: column; }
+.mig-stats .stat.right { text-align: right; }
+.mig-stats .stat-num {
+  font-family: var(--f-disp); font-size: clamp(1.9rem, 6vw, 3rem);
+  line-height: .9; color: var(--sun); letter-spacing: .01em;
+}
+.mig-stats .stat.right .stat-num { color: var(--sand); }
+.mig-stats .stat-lbl {
+  font-family: var(--f-mono); font-size: .66rem; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--sand-mut); margin-top: .35rem;
+}
+.stat-track {
+  height: 5px; margin: 0 1.3rem 1rem; border-radius: 999px;
+  background: rgba(255,150,80,.14); overflow: hidden;
+}
+.stat-fill {
+  height: 100%; width: 0; border-radius: 999px;
+  background: var(--grad-sunset); transition: width 1s cubic-bezier(.2,.7,.2,1);
+}

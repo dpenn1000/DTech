@@ -380,6 +380,65 @@ var MIGRATION = {
     legend.appendChild(phChip);
   }
 
+  /* ---- mileage ticker: driven (live trail) + remaining (charted route) ---- */
+  function haversineMi(a, b) {
+    var R = 3958.8, rad = Math.PI / 180;
+    var dp = (b[0] - a[0]) * rad, dl = (b[1] - a[1]) * rad;
+    var s = Math.sin(dp / 2) * Math.sin(dp / 2) +
+      Math.cos(a[0] * rad) * Math.cos(b[0] * rad) * Math.sin(dl / 2) * Math.sin(dl / 2);
+    return 2 * R * Math.asin(Math.sqrt(s));
+  }
+  /* full charted path + cumulative distances, for "how far along" */
+  var planned = [], plannedCum = [0];
+  MIGRATION.days.forEach(function (day) {
+    if (!day.route) return;
+    decodePoly(day.route).forEach(function (p) { planned.push(p); });
+  });
+  for (var pi = 1; pi < planned.length; pi++)
+    plannedCum.push(plannedCum[pi - 1] + haversineMi(planned[pi - 1], planned[pi]));
+  var plannedTotal = plannedCum[plannedCum.length - 1] || 0;
+
+  function progressAlong(lat, lng) {
+    var best = 0, bestD = Infinity;
+    for (var i = 0; i < planned.length; i++) {
+      var d = haversineMi([lat, lng], planned[i]);
+      if (d < bestD) { bestD = d; best = plannedCum[i]; }
+    }
+    return best;
+  }
+
+  var tickPrev = {};
+  function animateNum(id, to) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var from = tickPrev[id] || 0; tickPrev[id] = to;
+    /* write the final value first so the number is always correct even if
+       rAF is throttled (background tab, reduced motion); animate on top
+       only when the page is visible */
+    el.textContent = Math.round(to).toLocaleString();
+    if (from === to || document.hidden || !window.requestAnimationFrame) return;
+    var t0 = null, dur = 900;
+    function step(ts) {
+      if (t0 === null) t0 = ts;
+      var k = Math.min(1, (ts - t0) / dur);
+      k = 1 - Math.pow(1 - k, 3);   // ease-out
+      el.textContent = Math.round(from + (to - from) * k).toLocaleString();
+      if (k < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  function updateTicker(trailPts, lat, lng) {
+    var driven = 0;
+    for (var i = 1; i < trailPts.length; i++) driven += haversineMi(trailPts[i - 1], trailPts[i]);
+    var togo = Math.max(0, plannedTotal - progressAlong(lat, lng));
+    var pct = plannedTotal ? Math.min(100, 100 * (plannedTotal - togo) / plannedTotal) : 0;
+    animateNum('mi-driven', driven);
+    animateNum('mi-togo', togo);
+    var fill = document.getElementById('mi-fill');
+    if (fill) fill.style.width = pct.toFixed(1) + '%';
+  }
+
   /* ---- live tracker: actual GPS breadcrumb + moving pin ---- */
   if (MIGRATION.tracker && MIGRATION.tracker.url) {
     var crumbCasing = L.polyline([], { color: '#1f1419', weight: 6, opacity: .55 }).addTo(map);
@@ -403,6 +462,7 @@ var MIGRATION = {
           crumb.setLatLngs(pts);
           var last = j.pings[j.pings.length - 1];
           placeHere(last.lat, last.lng, 'We are here — live, ' + fmtWhen(last.ts));
+          updateTicker(pts, last.lat, last.lng);
         })
         .catch(function (e) { console.warn('tracker refresh failed:', e); });
     }
