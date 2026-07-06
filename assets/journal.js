@@ -413,5 +413,23 @@ window.MIGRATION_PHOTOS = [
   "ts": "2026-07-05T15:00:09",
   "day": "Jul 5",
   "time": "3:00 PM"
+ },
+ {
+  "f": "assets/journal/20260705_194720.jpg",
+  "t": "assets/journal/20260705_194720-t.jpg",
+  "lat": 38.8785,
+  "lng": -97.98683,
+  "ts": "2026-07-05T19:47:20",
+  "day": "Jul 5",
+  "time": "7:47 PM"
+ },
+ {
+  "f": "assets/journal/20260705_195848.jpg",
+  "t": "assets/journal/20260705_195848-t.jpg",
+  "lat": 38.85707,
+  "lng": -98.1337,
+  "ts": "2026-07-05T19:58:48",
+  "day": "Jul 5",
+  "time": "7:58 PM"
  }
 ];
