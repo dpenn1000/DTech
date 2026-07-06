@@ -326,34 +326,56 @@ var MIGRATION = {
 
   if (window.MIGRATION_PHOTOS && MIGRATION_PHOTOS.length) {
     var photoLayer = L.layerGroup().addTo(map);
-    var phGroups = {};
-    MIGRATION_PHOTOS.forEach(function (p) {
-      var k = Math.round(p.lat / 0.03) + '_' + Math.round(p.lng / 0.03);
-      (phGroups[k] = phGroups[k] || []).push(p);
-    });
-    Object.keys(phGroups).forEach(function (k) {
-      var g = phGroups[k];
-      var mk = L.marker([g[0].lat, g[0].lng], {
-        icon: L.divIcon({
-          className: 'mig-photo', iconSize: [46, 46],
-          html: '<img src="' + g[0].t + '" alt="">' + (g.some(function (p) { return p.v; }) ? '<span class="ph-play">&#9654;</span>' : '') +
-            (g.length > 1 ? '<span class="ph-n">' + g.length + '</span>' : '')
-        }),
-        zIndexOffset: 500
-      }).addTo(photoLayer);
-      mk.on('click', function () { openLightbox(g, 0); });
-      bounds.extend([g[0].lat, g[0].lng]);
-    });
+
+    /* Zoom-aware clustering: a 46px marker covers ~26km at trip-overview
+       zoom, so fixed-grid grouping piles dozens of pins into one column.
+       Instead we re-cluster on every zoom by SCREEN distance: photos
+       whose pixels fall within CLUSTER_PX of an existing cluster merge
+       into it (newest cover photo on top, count badge). Zoom in and the
+       clusters split back into individual photos. */
+    var CLUSTER_PX = 50;
+    function rebuildPhotos() {
+      photoLayer.clearLayers();
+      var clusters = [];
+      MIGRATION_PHOTOS.forEach(function (p) {
+        var pt = map.latLngToLayerPoint([p.lat, p.lng]);
+        var hit = null;
+        for (var i = 0; i < clusters.length; i++) {
+          var c = clusters[i];
+          if (Math.hypot(pt.x - c.x, pt.y - c.y) <= CLUSTER_PX) { hit = c; break; }
+        }
+        if (hit) { hit.items.push(p); }
+        else { clusters.push({ x: pt.x, y: pt.y, lat: p.lat, lng: p.lng, items: [p] }); }
+      });
+      clusters.forEach(function (c) {
+        var g = c.items, cover = g[g.length - 1];   // newest photo as the face
+        var mk = L.marker([c.lat, c.lng], {
+          icon: L.divIcon({
+            className: 'mig-photo', iconSize: [46, 46],
+            html: '<img src="' + cover.t + '" alt="">' +
+              (g.some(function (p) { return p.v; }) ? '<span class="ph-play">&#9654;</span>' : '') +
+              (g.length > 1 ? '<span class="ph-n">' + g.length + '</span>' : '')
+          }),
+          zIndexOffset: 500
+        }).addTo(photoLayer);
+        mk.on('click', function () { openLightbox(g, 0); });
+      });
+    }
+    MIGRATION_PHOTOS.forEach(function (p) { bounds.extend([p.lat, p.lng]); });
+    rebuildPhotos();
+    map.on('zoomend', rebuildPhotos);
 
     /* Photos on/off chip */
+    var photosOn = true;
     var phChip = document.createElement('button');
     phChip.className = 'mig-day';
     phChip.innerHTML = '<span class="dot" style="background:#fff;border-radius:4px"></span><span>Photos</span><span class="dt">' +
       MIGRATION_PHOTOS.length + ' pinned</span>';
     phChip.addEventListener('click', function () {
-      var on = map.hasLayer(photoLayer);
-      if (on) map.removeLayer(photoLayer); else photoLayer.addTo(map);
-      phChip.classList.toggle('off', on);
+      photosOn = !photosOn;
+      if (photosOn) { photoLayer.addTo(map); map.on('zoomend', rebuildPhotos); rebuildPhotos(); }
+      else { map.off('zoomend', rebuildPhotos); map.removeLayer(photoLayer); }
+      phChip.classList.toggle('off', !photosOn);
     });
     legend.appendChild(phChip);
   }
