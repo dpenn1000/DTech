@@ -307,6 +307,24 @@ window.MIGRATION_PHOTOS = [
   "time": "8:07 PM"
  },
  {
+  "v": "1iROHRa-ol-H72P0O8BiKYIWrsi43TNar",
+  "t": "assets/journal/20260704_201651_v-t.jpg",
+  "lat": 38.6283,
+  "lng": -90.18663,
+  "ts": "2026-07-04T20:16:51",
+  "day": "Jul 4",
+  "time": "8:16 PM"
+ },
+ {
+  "v": "1EUpPCzj8sJZTeyLYsLrVt5xv_dYPBUP_",
+  "t": "assets/journal/20260704_202037_v-t.jpg",
+  "lat": 38.62679,
+  "lng": -90.17979,
+  "ts": "2026-07-04T20:20:37",
+  "day": "Jul 4",
+  "time": "8:20 PM"
+ },
+ {
   "f": "assets/journal/20260704_202752.jpg",
   "t": "assets/journal/20260704_202752-t.jpg",
   "lat": 38.62783,

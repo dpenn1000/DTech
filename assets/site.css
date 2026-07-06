@@ -510,25 +510,45 @@ section { position: relative; z-index: 2; padding: var(--pad-sec); max-width: va
 .mr-pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .mig-lb {
   position: fixed; inset: 0; z-index: 4000; display: none;
-  align-items: center; justify-content: center; gap: .6rem;
+  flex-direction: column; align-items: center; justify-content: center; gap: .4rem;
   background: rgba(15,9,12,.93); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-  padding: 2.5rem 1rem 1.5rem;
+  padding: 2.5rem 1rem 1rem;
 }
 .mig-lb.on { display: flex; }
-.mig-lb figure { max-width: min(92vw, 1100px); max-height: 86vh; margin: 0; text-align: center; }
+.mig-lb figure { max-width: min(92vw, 1100px); margin: 0; text-align: center; }
 .mig-lb img {
-  max-width: 100%; max-height: 78vh; width: auto; height: auto;
+  max-width: 100%; max-height: 70vh; width: auto; height: auto;
   border-radius: var(--r); border: 1px solid var(--line-2);
   box-shadow: 0 24px 60px -20px rgba(0,0,0,.8);
 }
-.mig-lb figcaption { font-family: var(--f-mono); font-size: .78rem; color: var(--sand-mut); margin-top: .7rem; }
+.mig-lb .lb-vid {
+  width: min(88vw, 960px); aspect-ratio: 16 / 9;
+  border-radius: var(--r); overflow: hidden; border: 1px solid var(--line-2);
+  box-shadow: 0 24px 60px -20px rgba(0,0,0,.8); background: #000;
+}
+.mig-lb .lb-vid iframe { width: 100%; height: 100%; border: 0; display: block; }
+.mig-lb figcaption { font-family: var(--f-mono); font-size: .78rem; color: var(--sand-mut); margin-top: .6rem; }
 .mig-lb button {
   background: none; border: none; color: var(--sand); cursor: pointer;
   font-size: 2.2rem; line-height: 1; padding: .4rem .6rem; opacity: .7; transition: opacity .15s ease;
 }
 .mig-lb button:hover { opacity: 1; }
 .mig-lb .lb-x { position: absolute; top: .6rem; right: .9rem; font-size: 2.6rem; }
-@media (max-width: 640px) {
-  .mig-lb .lb-prev, .mig-lb .lb-next { position: absolute; bottom: .4rem; }
-  .mig-lb .lb-prev { left: 20%; } .mig-lb .lb-next { right: 20%; }
+/* nav row lives BELOW the media in a fixed spot, so the buttons never
+   move as photo sizes change */
+.mig-lb .lb-nav { display: flex; gap: 4.5rem; align-items: center; }
+.mig-lb .lb-nav button {
+  border: 1px solid var(--line-2); border-radius: var(--r-pill);
+  width: 58px; height: 44px; font-size: 1.7rem; display: flex;
+  align-items: center; justify-content: center; background: var(--night-2);
 }
+
+/* play badges on video thumbnails */
+.mig-photo .ph-play, .mr-pic.vid::after {
+  content: "\25B6"; position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 1rem; pointer-events: none;
+  text-shadow: 0 1px 6px rgba(0,0,0,.9);
+}
+.mig-photo .ph-play { font-size: .85rem; }
+.mr-pic { position: relative; }

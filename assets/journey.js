@@ -214,7 +214,7 @@ var MIGRATION = {
       return p.ts && day.ymd && p.ts.slice(0, 10) === day.ymd;
     });
     var picsHtml = dayPics.map(function (p, i) {
-      return '<button class="mr-pic" data-i="' + i + '"><img src="' + p.t + '" alt="" loading="lazy"></button>';
+      return '<button class="mr-pic' + (p.v ? ' vid' : '') + '" data-i="' + i + '"><img src="' + p.t + '" alt="" loading="lazy"></button>';
     }).join('');
     var hlHtml = (day.highlights || []).map(function (h) {
       var name = h.g
@@ -282,9 +282,9 @@ var MIGRATION = {
       lbEl = document.createElement('div');
       lbEl.className = 'mig-lb';
       lbEl.innerHTML = '<button class="lb-x" aria-label="Close">&times;</button>' +
-        '<button class="lb-prev" aria-label="Previous">&#8249;</button>' +
-        '<figure><img alt=""><figcaption></figcaption></figure>' +
-        '<button class="lb-next" aria-label="Next">&#8250;</button>';
+        '<figure><div class="lb-media"></div><figcaption></figcaption></figure>' +
+        '<div class="lb-nav"><button class="lb-prev" aria-label="Previous">&#8249;</button>' +
+        '<button class="lb-next" aria-label="Next">&#8250;</button></div>';
       document.body.appendChild(lbEl);
       lbEl.addEventListener('click', function (e) {
         if (e.target === lbEl || e.target.classList.contains('lb-x')) closeLb();
@@ -302,12 +302,21 @@ var MIGRATION = {
     lbEl.classList.add('on');
     document.body.style.overflow = 'hidden';
   }
-  function closeLb() { lbEl.classList.remove('on'); document.body.style.overflow = ''; }
+  function closeLb() {
+    lbEl.classList.remove('on'); document.body.style.overflow = '';
+    lbEl.querySelector('.lb-media').innerHTML = '';
+  }
   function showLb(pics, i) {
     i = (i + pics.length) % pics.length;
     lbEl._pics = pics; lbEl._i = i;
     var p = pics[i];
-    lbEl.querySelector('img').src = p.f;
+    var media = lbEl.querySelector('.lb-media');
+    if (p.v) {
+      media.innerHTML = '<div class="lb-vid"><iframe src="https://drive.google.com/file/d/' + p.v +
+        '/preview" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe></div>';
+    } else {
+      media.innerHTML = '<img alt="" src="' + p.f + '">';
+    }
     lbEl.querySelector('figcaption').textContent =
       (p.day ? p.day + (p.time ? ' • ' + p.time : '') : '') +
       (pics.length > 1 ? '  (' + (i + 1) + '/' + pics.length + ')' : '');
@@ -327,7 +336,8 @@ var MIGRATION = {
       var mk = L.marker([g[0].lat, g[0].lng], {
         icon: L.divIcon({
           className: 'mig-photo', iconSize: [46, 46],
-          html: '<img src="' + g[0].t + '" alt="">' + (g.length > 1 ? '<span class="ph-n">' + g.length + '</span>' : '')
+          html: '<img src="' + g[0].t + '" alt="">' + (g[0].v ? '<span class="ph-play">&#9654;</span>' : '') +
+            (g.length > 1 ? '<span class="ph-n">' + g.length + '</span>' : '')
         }),
         zIndexOffset: 500
       }).addTo(photoLayer);
