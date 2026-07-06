@@ -19,6 +19,15 @@ window.MIGRATION_PHOTOS = [
   "time": "8:12 PM"
  },
  {
+  "f": "assets/journal/20260702_204944.jpg",
+  "t": "assets/journal/20260702_204944-t.jpg",
+  "lat": 41.36282,
+  "lng": -75.68186,
+  "ts": "2026-07-02T20:49:44",
+  "day": "Jul 2",
+  "time": "8:49 PM"
+ },
+ {
   "f": "assets/journal/20260703_105433.jpg",
   "t": "assets/journal/20260703_105433-t.jpg",
   "lat": 41.0529,

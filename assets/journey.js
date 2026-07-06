@@ -336,7 +336,7 @@ var MIGRATION = {
       var mk = L.marker([g[0].lat, g[0].lng], {
         icon: L.divIcon({
           className: 'mig-photo', iconSize: [46, 46],
-          html: '<img src="' + g[0].t + '" alt="">' + (g[0].v ? '<span class="ph-play">&#9654;</span>' : '') +
+          html: '<img src="' + g[0].t + '" alt="">' + (g.some(function (p) { return p.v; }) ? '<span class="ph-play">&#9654;</span>' : '') +
             (g.length > 1 ? '<span class="ph-n">' + g.length + '</span>' : '')
         }),
         zIndexOffset: 500
