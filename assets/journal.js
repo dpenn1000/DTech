@@ -10,6 +10,15 @@ window.MIGRATION_PHOTOS = [
   "time": "10:54 AM"
  },
  {
+  "f": "assets/journal/PXL_20260703_172123304_MP_2.jpg",
+  "t": "assets/journal/PXL_20260703_172123304_MP_2-t.jpg",
+  "lat": 41.03238,
+  "lng": -78.4013,
+  "ts": "2026-07-03T13:21:23",
+  "day": "Jul 3",
+  "time": "1:21 PM"
+ },
+ {
   "f": "assets/journal/20260703_141901.jpg",
   "t": "assets/journal/20260703_141901-t.jpg",
   "lat": 41.19245,
@@ -53,6 +62,24 @@ window.MIGRATION_PHOTOS = [
   "ts": "2026-07-04T10:51:33",
   "day": "Jul 4",
   "time": "10:51 AM"
+ },
+ {
+  "f": "assets/journal/PXL_20260704_145211847_MP_2.jpg",
+  "t": "assets/journal/PXL_20260704_145211847_MP_2-t.jpg",
+  "lat": 39.83014,
+  "lng": -84.81648,
+  "ts": "2026-07-04T10:52:11",
+  "day": "Jul 4",
+  "time": "10:52 AM"
+ },
+ {
+  "f": "assets/journal/PXL_20260704_150833997_MP_2.jpg",
+  "t": "assets/journal/PXL_20260704_150833997_MP_2-t.jpg",
+  "lat": 39.85344,
+  "lng": -85.14551,
+  "ts": "2026-07-04T11:08:33",
+  "day": "Jul 4",
+  "time": "11:08 AM"
  },
  {
   "f": "assets/journal/20260704_110840.jpg",
@@ -181,6 +208,15 @@ window.MIGRATION_PHOTOS = [
   "time": "4:13 PM"
  },
  {
+  "f": "assets/journal/PXL_20260705_000552068_MP_2.jpg",
+  "t": "assets/journal/PXL_20260705_000552068_MP_2-t.jpg",
+  "lat": 38.62568,
+  "lng": -90.25246,
+  "ts": "2026-07-04T19:05:52",
+  "day": "Jul 4",
+  "time": "7:05 PM"
+ },
+ {
   "f": "assets/journal/20260704_194317.jpg",
   "t": "assets/journal/20260704_194317-t.jpg",
   "lat": 38.62871,
@@ -235,6 +271,15 @@ window.MIGRATION_PHOTOS = [
   "time": "7:57 PM"
  },
  {
+  "f": "assets/journal/PXL_20260705_010708073_2.jpg",
+  "t": "assets/journal/PXL_20260705_010708073_2-t.jpg",
+  "lat": 38.62186,
+  "lng": -90.19062,
+  "ts": "2026-07-04T20:07:08",
+  "day": "Jul 4",
+  "time": "8:07 PM"
+ },
+ {
   "f": "assets/journal/20260704_202752.jpg",
   "t": "assets/journal/20260704_202752-t.jpg",
   "lat": 38.62783,
@@ -242,6 +287,33 @@ window.MIGRATION_PHOTOS = [
   "ts": "2026-07-04T20:28:05",
   "day": "Jul 4",
   "time": "8:28 PM"
+ },
+ {
+  "f": "assets/journal/PXL_20260705_013658770_MP_2.jpg",
+  "t": "assets/journal/PXL_20260705_013658770_MP_2-t.jpg",
+  "lat": 38.62646,
+  "lng": -90.1792,
+  "ts": "2026-07-04T20:36:58",
+  "day": "Jul 4",
+  "time": "8:36 PM"
+ },
+ {
+  "f": "assets/journal/PXL_20260705_020834156_2.jpg",
+  "t": "assets/journal/PXL_20260705_020834156_2-t.jpg",
+  "lat": 38.62733,
+  "lng": -90.18879,
+  "ts": "2026-07-04T21:08:34",
+  "day": "Jul 4",
+  "time": "9:08 PM"
+ },
+ {
+  "f": "assets/journal/PXL_20260705_020841955_MP_2.jpg",
+  "t": "assets/journal/PXL_20260705_020841955_MP_2-t.jpg",
+  "lat": 38.62733,
+  "lng": -90.18879,
+  "ts": "2026-07-04T21:08:41",
+  "day": "Jul 4",
+  "time": "9:08 PM"
  },
  {
   "f": "assets/journal/20260704_222655.jpg",
@@ -413,6 +485,15 @@ window.MIGRATION_PHOTOS = [
   "ts": "2026-07-05T15:00:09",
   "day": "Jul 5",
   "time": "3:00 PM"
+ },
+ {
+  "f": "assets/journal/PXL_20260705_200416043_MP_2.jpg",
+  "t": "assets/journal/PXL_20260705_200416043_MP_2-t.jpg",
+  "lat": 38.98777,
+  "lng": -93.51402,
+  "ts": "2026-07-05T15:04:16",
+  "day": "Jul 5",
+  "time": "3:04 PM"
  },
  {
   "f": "assets/journal/20260705_194720.jpg",
