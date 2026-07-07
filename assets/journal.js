@@ -755,5 +755,392 @@ window.MIGRATION_PHOTOS = [
   "ts": "2026-07-05T20:59:28",
   "day": "Jul 5",
   "time": "8:59 PM"
+ },
+ {
+  "f": "assets/journal/20260706_094257.jpg",
+  "t": "assets/journal/20260706_094257-t.jpg",
+  "lat": 39.03015,
+  "lng": -100.18224,
+  "ts": "2026-07-06T09:42:57",
+  "day": "Jul 6",
+  "time": "9:42 AM"
+ },
+ {
+  "f": "assets/journal/20260706_101429.jpg",
+  "t": "assets/journal/20260706_101429-t.jpg",
+  "lat": 39.11263,
+  "lng": -100.74572,
+  "ts": "2026-07-06T10:14:30",
+  "day": "Jul 6",
+  "time": "10:14 AM"
+ },
+ {
+  "f": "assets/journal/20260706_102954.jpg",
+  "t": "assets/journal/20260706_102954-t.jpg",
+  "lat": 39.32974,
+  "lng": -102.02982,
+  "ts": "2026-07-06T10:29:54",
+  "day": "Jul 6",
+  "time": "10:29 AM"
+ },
+ {
+  "f": "assets/journal/20260706_103039.jpg",
+  "t": "assets/journal/20260706_103039-t.jpg",
+  "lat": 39.30487,
+  "lng": -100.96388,
+  "ts": "2026-07-06T10:30:39",
+  "day": "Jul 6",
+  "time": "10:30 AM"
+ },
+ {
+  "f": "assets/journal/20260706_110734.jpg",
+  "t": "assets/journal/20260706_110734-t.jpg",
+  "lat": 39.29242,
+  "lng": -102.88721,
+  "ts": "2026-07-06T11:07:34",
+  "day": "Jul 6",
+  "time": "11:07 AM"
+ },
+ {
+  "f": "assets/journal/20260706_110740.jpg",
+  "t": "assets/journal/20260706_110740-t.jpg",
+  "lat": 39.29242,
+  "lng": -102.88721,
+  "ts": "2026-07-06T11:07:40",
+  "day": "Jul 6",
+  "time": "11:07 AM"
+ },
+ {
+  "f": "assets/journal/20260706_113251.jpg",
+  "t": "assets/journal/20260706_113251-t.jpg",
+  "lat": 39.26544,
+  "lng": -103.56938,
+  "ts": "2026-07-06T11:32:51",
+  "day": "Jul 6",
+  "time": "11:32 AM"
+ },
+ {
+  "f": "assets/journal/20260706_133727.jpg",
+  "t": "assets/journal/20260706_133727-t.jpg",
+  "lat": 39.75338,
+  "lng": -104.8766,
+  "ts": "2026-07-06T13:37:26",
+  "day": "Jul 6",
+  "time": "1:37 PM"
+ },
+ {
+  "f": "assets/journal/20260706_145733.jpg",
+  "t": "assets/journal/20260706_145733-t.jpg",
+  "lat": 39.75318,
+  "lng": -104.87702,
+  "ts": "2026-07-06T14:57:33",
+  "day": "Jul 6",
+  "time": "2:57 PM"
+ },
+ {
+  "f": "assets/journal/20260706_153723.jpg",
+  "t": "assets/journal/20260706_153723-t.jpg",
+  "lat": 39.69596,
+  "lng": -105.20847,
+  "ts": "2026-07-06T15:37:22",
+  "day": "Jul 6",
+  "time": "3:37 PM"
+ },
+ {
+  "f": "assets/journal/20260706_153750.jpg",
+  "t": "assets/journal/20260706_153750-t.jpg",
+  "lat": 39.70928,
+  "lng": -105.28568,
+  "ts": "2026-07-06T15:37:50",
+  "day": "Jul 6",
+  "time": "3:37 PM"
+ },
+ {
+  "f": "assets/journal/20260706_154155.jpg",
+  "t": "assets/journal/20260706_154155-t.jpg",
+  "lat": 39.70928,
+  "lng": -105.28568,
+  "ts": "2026-07-06T15:41:55",
+  "day": "Jul 6",
+  "time": "3:41 PM"
+ },
+ {
+  "f": "assets/journal/20260706_155039.jpg",
+  "t": "assets/journal/20260706_155039-t.jpg",
+  "lat": 39.74253,
+  "lng": -105.43296,
+  "ts": "2026-07-06T15:50:39",
+  "day": "Jul 6",
+  "time": "3:50 PM"
+ },
+ {
+  "f": "assets/journal/20260706_155339.jpg",
+  "t": "assets/journal/20260706_155339-t.jpg",
+  "lat": 39.74193,
+  "lng": -105.49464,
+  "ts": "2026-07-06T15:53:39",
+  "day": "Jul 6",
+  "time": "3:53 PM"
+ },
+ {
+  "f": "assets/journal/20260706_155348.jpg",
+  "t": "assets/journal/20260706_155348-t.jpg",
+  "lat": 39.74193,
+  "lng": -105.49464,
+  "ts": "2026-07-06T15:53:48",
+  "day": "Jul 6",
+  "time": "3:53 PM"
+ },
+ {
+  "f": "assets/journal/20260706_162809.jpg",
+  "t": "assets/journal/20260706_162809-t.jpg",
+  "lat": 39.71547,
+  "lng": -105.69727,
+  "ts": "2026-07-06T16:28:09",
+  "day": "Jul 6",
+  "time": "4:28 PM"
+ },
+ {
+  "f": "assets/journal/20260706_163635.jpg",
+  "t": "assets/journal/20260706_163635-t.jpg",
+  "lat": 39.71547,
+  "lng": -105.69726,
+  "ts": "2026-07-06T16:36:34",
+  "day": "Jul 6",
+  "time": "4:36 PM"
+ },
+ {
+  "f": "assets/journal/20260706_164752.jpg",
+  "t": "assets/journal/20260706_164752-t.jpg",
+  "lat": 39.67696,
+  "lng": -105.94637,
+  "ts": "2026-07-06T16:47:52",
+  "day": "Jul 6",
+  "time": "4:47 PM"
+ },
+ {
+  "f": "assets/journal/20260706_164804.jpg",
+  "t": "assets/journal/20260706_164804-t.jpg",
+  "lat": 39.67696,
+  "lng": -105.94637,
+  "ts": "2026-07-06T16:48:04",
+  "day": "Jul 6",
+  "time": "4:48 PM"
+ },
+ {
+  "f": "assets/journal/20260706_172938.jpg",
+  "t": "assets/journal/20260706_172938-t.jpg",
+  "lat": 39.62069,
+  "lng": -106.47264,
+  "ts": "2026-07-06T17:29:37",
+  "day": "Jul 6",
+  "time": "5:29 PM"
+ },
+ {
+  "v": "1G3Qh21xUxhLQk76Ta5i5en4Ai0NBnjtO",
+  "t": "assets/journal/20260706_180713_v-t.jpg",
+  "lat": 39.61849,
+  "lng": -107.12758,
+  "ts": "2026-07-06T18:07:13",
+  "day": "Jul 6",
+  "time": "6:07 PM"
+ },
+ {
+  "f": "assets/journal/20260706_180738.jpg",
+  "t": "assets/journal/20260706_180738-t.jpg",
+  "lat": 39.61849,
+  "lng": -107.12758,
+  "ts": "2026-07-06T18:07:38",
+  "day": "Jul 6",
+  "time": "6:07 PM"
+ },
+ {
+  "f": "assets/journal/20260706_180744.jpg",
+  "t": "assets/journal/20260706_180744-t.jpg",
+  "lat": 39.61849,
+  "lng": -107.12758,
+  "ts": "2026-07-06T18:07:45",
+  "day": "Jul 6",
+  "time": "6:07 PM"
+ },
+ {
+  "f": "assets/journal/20260706_180802.jpg",
+  "t": "assets/journal/20260706_180802-t.jpg",
+  "lat": 39.59097,
+  "lng": -107.18137,
+  "ts": "2026-07-06T18:08:02",
+  "day": "Jul 6",
+  "time": "6:08 PM"
+ },
+ {
+  "f": "assets/journal/20260706_180805.jpg",
+  "t": "assets/journal/20260706_180805-t.jpg",
+  "lat": 39.59097,
+  "lng": -107.18137,
+  "ts": "2026-07-06T18:08:05",
+  "day": "Jul 6",
+  "time": "6:08 PM"
+ },
+ {
+  "f": "assets/journal/20260706_180822.jpg",
+  "t": "assets/journal/20260706_180822-t.jpg",
+  "lat": 39.59097,
+  "lng": -107.18137,
+  "ts": "2026-07-06T18:08:21",
+  "day": "Jul 6",
+  "time": "6:08 PM"
+ },
+ {
+  "f": "assets/journal/20260706_182750.jpg",
+  "t": "assets/journal/20260706_182750-t.jpg",
+  "lat": 39.56025,
+  "lng": -107.25153,
+  "ts": "2026-07-06T18:27:50",
+  "day": "Jul 6",
+  "time": "6:27 PM"
+ },
+ {
+  "f": "assets/journal/20260706_182817.jpg",
+  "t": "assets/journal/20260706_182817-t.jpg",
+  "lat": 39.56025,
+  "lng": -107.25153,
+  "ts": "2026-07-06T18:28:17",
+  "day": "Jul 6",
+  "time": "6:28 PM"
+ },
+ {
+  "f": "assets/journal/20260706_183403.jpg",
+  "t": "assets/journal/20260706_183403-t.jpg",
+  "lat": 39.56032,
+  "lng": -107.25154,
+  "ts": "2026-07-06T18:34:02",
+  "day": "Jul 6",
+  "time": "6:34 PM"
+ },
+ {
+  "f": "assets/journal/20260706_183431.jpg",
+  "t": "assets/journal/20260706_183431-t.jpg",
+  "lat": 39.56032,
+  "lng": -107.25154,
+  "ts": "2026-07-06T18:34:31",
+  "day": "Jul 6",
+  "time": "6:34 PM"
+ },
+ {
+  "f": "assets/journal/20260706_183434.jpg",
+  "t": "assets/journal/20260706_183434-t.jpg",
+  "lat": 39.56032,
+  "lng": -107.25154,
+  "ts": "2026-07-06T18:34:34",
+  "day": "Jul 6",
+  "time": "6:34 PM"
+ },
+ {
+  "f": "assets/journal/20260706_183612.jpg",
+  "t": "assets/journal/20260706_183612-t.jpg",
+  "lat": 39.56032,
+  "lng": -107.25154,
+  "ts": "2026-07-06T18:36:12",
+  "day": "Jul 6",
+  "time": "6:36 PM"
+ },
+ {
+  "f": "assets/journal/20260706_183629.jpg",
+  "t": "assets/journal/20260706_183629-t.jpg",
+  "lat": 39.56032,
+  "lng": -107.25154,
+  "ts": "2026-07-06T18:36:29",
+  "day": "Jul 6",
+  "time": "6:36 PM"
+ },
+ {
+  "f": "assets/journal/20260706_183739.jpg",
+  "t": "assets/journal/20260706_183739-t.jpg",
+  "lat": 39.56032,
+  "lng": -107.25154,
+  "ts": "2026-07-06T18:37:39",
+  "day": "Jul 6",
+  "time": "6:37 PM"
+ },
+ {
+  "f": "assets/journal/20260706_201354.jpg",
+  "t": "assets/journal/20260706_201354-t.jpg",
+  "lat": 39.52187,
+  "lng": -107.77257,
+  "ts": "2026-07-06T20:13:54",
+  "day": "Jul 6",
+  "time": "8:13 PM"
+ },
+ {
+  "f": "assets/journal/20260707_071606.jpg",
+  "t": "assets/journal/20260707_071606-t.jpg",
+  "lat": 39.52178,
+  "lng": -107.77258,
+  "ts": "2026-07-07T07:16:06",
+  "day": "Jul 7",
+  "time": "7:16 AM"
+ },
+ {
+  "f": "assets/journal/20260707_071904.jpg",
+  "t": "assets/journal/20260707_071904-t.jpg",
+  "lat": 39.52179,
+  "lng": -107.77258,
+  "ts": "2026-07-07T07:19:04",
+  "day": "Jul 7",
+  "time": "7:19 AM"
+ },
+ {
+  "f": "assets/journal/20260707_072137.jpg",
+  "t": "assets/journal/20260707_072137-t.jpg",
+  "lat": 39.52179,
+  "lng": -107.77258,
+  "ts": "2026-07-07T07:21:58",
+  "day": "Jul 7",
+  "time": "7:21 AM"
+ },
+ {
+  "f": "assets/journal/20260707_072314.jpg",
+  "t": "assets/journal/20260707_072314-t.jpg",
+  "lat": 39.5218,
+  "lng": -107.77258,
+  "ts": "2026-07-07T07:23:14",
+  "day": "Jul 7",
+  "time": "7:23 AM"
+ },
+ {
+  "f": "assets/journal/20260707_072449.jpg",
+  "t": "assets/journal/20260707_072449-t.jpg",
+  "lat": 39.5218,
+  "lng": -107.77258,
+  "ts": "2026-07-07T07:24:49",
+  "day": "Jul 7",
+  "time": "7:24 AM"
+ },
+ {
+  "f": "assets/journal/20260707_073009.jpg",
+  "t": "assets/journal/20260707_073009-t.jpg",
+  "lat": 39.52178,
+  "lng": -107.77256,
+  "ts": "2026-07-07T07:30:09",
+  "day": "Jul 7",
+  "time": "7:30 AM"
+ },
+ {
+  "f": "assets/journal/20260707_073525.jpg",
+  "t": "assets/journal/20260707_073525-t.jpg",
+  "lat": 39.52176,
+  "lng": -107.77258,
+  "ts": "2026-07-07T07:35:25",
+  "day": "Jul 7",
+  "time": "7:35 AM"
+ },
+ {
+  "f": "assets/journal/20260707_073759.jpg",
+  "t": "assets/journal/20260707_073759-t.jpg",
+  "lat": 39.52176,
+  "lng": -107.77258,
+  "ts": "2026-07-07T07:37:59",
+  "day": "Jul 7",
+  "time": "7:37 AM"
  }
 ];
