@@ -793,6 +793,15 @@ window.MIGRATION_PHOTOS = [
   "time": "10:30 AM"
  },
  {
+  "f": "assets/journal/PXL_20260706_163048516_MP_2.jpg",
+  "t": "assets/journal/PXL_20260706_163048516_MP_2-t.jpg",
+  "lat": 39.30487,
+  "lng": -100.96388,
+  "ts": "2026-07-06T10:30:48",
+  "day": "Jul 6",
+  "time": "10:30 AM"
+ },
+ {
   "f": "assets/journal/20260706_110734.jpg",
   "t": "assets/journal/20260706_110734-t.jpg",
   "lat": 39.29242,
