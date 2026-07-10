@@ -57,5 +57,19 @@ Good sources, in order of preference: the venue's **own website**, its **Instagr
 |---|---|---|
 | `hero-home.jpg` | Home page hero background (currently a gradient) | A wide, dramatic Estrella Mountain Ranch / North Lake sunset. If added, tell me and I'll wire it into `index.html`. |
 
+## Re-shoot list — Trails page (moved from Copper Ridge to W Verdin)
+The house is on **W Verdin Rd, across from the FINS trailhead (33.3230, -112.4405)**, not 17737 W Copper Ridge Dr. These images are centered on the old address and need re-pulls centered on the new one. Captions in `trails.html` are already updated.
+
+| Filename | What it shows now | What to re-capture |
+|---|---|---|
+| `trail-01.jpg` | Aerial with the Copper Ridge home marked red | Same style aerial centered on the W Verdin home, FINS trailhead marked purple |
+| `trail-02.jpg` | Two trail arms from the old house | Two arms from Verdin: wash spine north to the lakes, FINS singletrack south/east |
+| `trail-03.jpg` | Annotated satellite of the community from the old pin | Same annotation set re-centered on Verdin |
+| `trail-heatmap.jpg` | Garmin Connect popularity overlay around the old block | Same overlay panned south to the Verdin / FINS corridor |
+| `trail-09.jpg` | Lakes heat map, spine toward Copper Ridge | Re-frame so the spine runs to the bottom edge (Verdin end) |
+| `trail-10.jpg` | Heat corridor a block from the old cul-de-sac | The FINS trailhead corridor off Verdin, lit up |
+
+Source for the heat pulls: Garmin Connect popularity overlay (same method as the originals); Strava Global Heatmap works as a cross-check.
+
 ## If you'd rather use image URLs instead of files
 Paste me a list of `filename = https://image-url` pairs and I'll hotlink them with a fallback instead. Files dropped into `assets/img/` are more reliable for viewers, though.

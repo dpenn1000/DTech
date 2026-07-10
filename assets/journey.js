@@ -115,7 +115,7 @@ var MIGRATION = {
       route: "gaqzEhqjkTkbKiSumBkmBwm@jX~n@{VbhB~jB|gIpDbxCrt@bjo@_Br}S`|AluW`bEjbCuk@fjJkFrzBsn@hlEl^lpH}{CjgFx}@|KslL_j@erDzjBsgMoz@i|Hd~@ctGkB_tEbqCurI``C}`Ed~DgoR~fEvpBnfCcZr{E`m@xjAa`@p_RfQthBgo@duB{iD|tCov@nwDkB`vBqsAhiAezBftAgUbkC`z@b{Ai`B|kBj|@`wB~_HnlJ~{OdoC`c@ptA|`En{DnnEde@v}BrvBloBhm@jtB~eEhkBdsBblCxqBdW~|@|gFsK~}DbgItjGpeI`gD~j@|sAzuD`dCfcDzfEfdKzkA~~DeuAdnFlPt_Bwb@j`CzqBxlEjbBz{Ela@`jIofAnkDjt@nuDNxnHa`CrbCviAlgK`q@d~IwQp|JuzAoAreFqpAhnEl|A`}NblEpyC`vE`hAfq@~zLbtBfbChaB`q@va]jB`nGzx@ruKgEjgB_k@`bCfMoAk]nbAv^tvCwa@",
       stops: [
         { name: "Mather Point • Grand Canyon", note: "6:00 AM sunrise over the canyon. Worth the alarm.", lat: 36.0616, lng: -112.1078 },
-        { name: "Estrella • Goodyear, AZ", note: "New home. Migration complete.", lat: 33.3270, lng: -112.3930 }
+        { name: "Estrella • Goodyear, AZ", note: "New home on W Verdin, across from the FINS trailhead. Migration complete.", lat: 33.3230, lng: -112.4405 }
       ] }
   ]
 };
