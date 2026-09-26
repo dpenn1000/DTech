@@ -2,7 +2,7 @@
 """Generate humanized drum + bass MIDI clips for live backing tracks in Ableton.
 
 No dependencies. Run:  python3 make_tracks.py
-Output lands in ./clips/<song>/, one .mid per section per instrument,
+Output lands in ./clips/<song>/, one .mid per section per track (drums, bass, lights),
 ready to drag into Session View clip slots.
 
 To add a song, copy an entry in SONGS and change tempo, feel and chords.
@@ -278,6 +278,25 @@ def bass(section, feel, seed):
     return ev
 
 
+# ---------------------------------------------------------------- lights
+# One note on the downbeat of each section. ONYX maps each note to a cuelist.
+# Ableton names: C3 = 60. Keep this table in sync with LIGHTING.md.
+LIGHT_CUES = {
+    "intro": 60,    # C3  warm, low intensity
+    "verse": 62,    # D3  warm wash
+    "chorus": 64,   # E3  full, brighter color
+    "bridge": 65,   # F3  cool, moody
+    "outro": 67,    # G3  build to full, then hold
+    "fill": 69,     # A3  quick flash / bump
+    "blackout": 72, # C4  all off
+}
+
+
+def lights(sec_name):
+    kind = sec_name.split("-", 1)[1]
+    return [(0, LIGHT_CUES[kind], 100, E8, 0)]
+
+
 # ---------------------------------------------------------------- main
 def main():
     here = os.path.dirname(os.path.abspath(__file__))
@@ -292,12 +311,16 @@ def main():
             b = bass(sec, song["feel"], seed)
             write_mid(os.path.join(out, f"{sec_name}-drums.mid"), d, f"{sec_name} drums", song["tempo"], bars)
             write_mid(os.path.join(out, f"{sec_name}-bass.mid"), b, f"{sec_name} bass", song["tempo"], bars)
+            write_mid(os.path.join(out, f"{sec_name}-lights.mid"), lights(sec_name), f"{sec_name} lights",
+                      song["tempo"], bars)
             full_d += [(t + offset, *rest) for t, *rest in d]
             full_b += [(min(t, bars * BAR - E16) + offset, n, v, min(ln, bars * BAR - t), c)
                        for t, n, v, ln, c in b]
             offset += bars * BAR
         write_mid(os.path.join(out, "6-fill-drums.mid"), fill_clip(song["feel"], s * 100 + 50),
                   "fill", song["tempo"], 1)
+        write_mid(os.path.join(out, "6-fill-lights.mid"), [(0, LIGHT_CUES["fill"], 100, E8, 0)],
+                  "fill lights", song["tempo"], 1)
         total = offset // BAR
         write_mid(os.path.join(out, "0-full-song-drums.mid"), full_d, "full drums", song["tempo"], total)
         write_mid(os.path.join(out, "0-full-song-bass.mid"), full_b, "full bass", song["tempo"], total)

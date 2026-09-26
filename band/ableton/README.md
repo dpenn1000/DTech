@@ -15,6 +15,9 @@ clips/
     4-bridge-*.mid       drops back to light
     5-outro-*.mid        big ending, last hit rings
     6-fill-drums.mid     one bar with a fill, for launching by hand
+    *-lights.mid         one MIDI note per section, fires the ONYX look
+LIGHTING.md              Ableton → ONYX → Blizzard LB-Hex setup
+BANDHELPER.md            BandHelper (Android) + AbleSet setup
 make_tracks.py           the generator; edit chords/tempo and re-run
 ```
 
@@ -47,7 +50,7 @@ Five sessions, about an hour each. Do them in order.
 
 ### Lesson 2: Build the rig (one-time setup)
 
-1. Create two MIDI tracks: **Cmd+Shift+T** (Mac) or **Ctrl+Shift+T** (Windows). Name one `Drums`, one `Bass` (double-click the name).
+1. Create three MIDI tracks: **Cmd+Shift+T** (Mac) or **Ctrl+Shift+T** (Windows). Name them `Drums`, `Bass` and `Lights` (double-click the name). Lights setup is in `LIGHTING.md`.
 2. **Drum sound.** In the browser on the left, go to **Drums** and drag an acoustic kit onto the Drums track. Pick one labeled as a real kit, not an 808/909. If your edition doesn't include a good acoustic kit, the free **MT Power Drum Kit 2** plugin is a solid choice and uses the same note map as these files.
 3. **Bass sound.** Drag a bass instrument onto the Bass track. Look in **Instruments** for anything called electric bass, finger bass or upright bass. If your edition only has synth basses, **Ample Bass P Lite** is free and sounds like a real P-bass.
 4. Check what your Live edition includes (Intro, Standard or Suite) under Live > About Live. Suite has the most acoustic instruments. Tell me which one you have and I'll name exact presets.
